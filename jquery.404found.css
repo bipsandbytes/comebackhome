@@ -1,0 +1,176 @@
+person_found_panel {
+    padding: 20px;
+}
+
+person_found_panel h1 {
+    line-height: 1.2;
+    font-size: 2.5em;
+    font-family: "Proxima Nova", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+    color: #222222;
+}
+person_found_panel p {
+    font-size: 1.2em;
+    font-family: "Proxima Nova", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+    color: #222222;
+}
+ul.polaroids li {
+    display: inline
+}
+ul.polaroids a {
+    background: #CCCCCC;
+    display: inline;
+    float: left;
+    margin: 0 0 27px 30px;
+    width: auto;
+    padding: 10px 10px 15px;
+    text-align: center;
+    font-family: "Marker Felt", sans-serif;
+    text-decoration: none;
+    color: #333;
+    font-size: 18px;
+    text-transform: capitalize;
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25);
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25);
+    -webkit-transform: rotate(-2deg);
+    -webkit-transition: -webkit-transform .15s linear;
+    -moz-transform: rotate(-2deg);
+}
+ul.polaroids li { padding-left: 0 }
+ul.polaroids img {
+    display: block;
+    width: 120px;
+    height: 150px;
+    margin-bottom: 12px;
+    margin-right: auto;
+    margin-left: auto;
+}
+ul.polaroids a:after { content: attr(title) }
+ul.polaroids li:nth-child(even) a {
+    -webkit-transform: rotate(2deg);
+    -moz-transform: rotate(2deg);
+}
+ul.polaroids li:nth-child(3n) a {
+    -webkit-transform: none;
+    position: relative;
+    top: -5px;
+    -moz-transform: none;
+}
+ul.polaroids li:nth-child(5n) a {
+    -webkit-transform: rotate(5deg);
+    position: relative;
+    right: 5px;
+    -moz-transform: rotate(5deg);
+}
+ul.polaroids li:nth-child(8n) a {
+    position: relative;
+    right: 5px;
+    top: 8px;
+}
+ul.polaroids li:nth-child(11n) a {
+    position: relative;
+    left: -5px;
+    top: 3px;
+}
+ul.polaroids li.messy a {
+    margin-top: -100px;
+    position: relative;
+    left: 60px;
+}
+ul.polaroids li a:hover {
+    -webkit-transform: scale(1.25);
+    -moz-transform: scale(1.25);
+    -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.5);
+    -moz-box-shadow: 0 3px 6px rgba(0,0,0,.5);
+    position: relative;
+    z-index: 5;
+}
+ul.polaroids li:nth-child(2n) img {
+    animation: fadein 11s;
+    -moz-animation: fadein 11s; /* Firefox */
+    -webkit-animation: fadein 11s; /* Safari and Chrome */
+    -o-animation: fadein 11s; /* Opera */
+}
+ul.polaroids li:nth-child(3n) img {
+    animation: fadein 5s;
+    -moz-animation: fadein 5s; /* Firefox */
+    -webkit-animation: fadein 5s; /* Safari and Chrome */
+    -o-animation: fadein 5s; /* Opera */
+}
+ul.polaroids li:nth-child(5n) img {
+    animation: fadein 9s;
+    -moz-animation: fadein 9s; /* Firefox */
+    -webkit-animation: fadein 9s; /* Safari and Chrome */
+    -o-animation: fadein 9s; /* Opera */
+}
+ul.polaroids li:nth-child(7n) img {
+    animation: fadein 7s;
+    -moz-animation: fadein 7s; /* Firefox */
+    -webkit-animation: fadein 7s; /* Safari and Chrome */
+    -o-animation: fadein 7s; /* Opera */
+}
+@keyframes fadein {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadein { /* Firefox */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadein { /* Safari and Chrome */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadein { /* Opera */
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#person_found_frame {
+    width: 90%;
+    position: absolute;
+    bottom: 0;
+    background: #251b15;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+}
+
+#person_found_title {
+    padding: 10px;
+    color: greenyellow;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+#person_found_desc {
+    padding-right: 10px;
+    color: #AAAAAA;
+    font-family: 'Roboto Condensed', sans-serif;
+    float: right;
+}
+
+#person_found_panel {
+    display: none;
+    padding: 10px;
+}
+
+#person_found_panel h1 {
+    padding-left: 70px;
+    color: #EEEEEE;
+    font-size: 24px;
+    font-family: 'Roboto Condensed', serif;
+}
