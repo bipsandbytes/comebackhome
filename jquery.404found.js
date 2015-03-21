@@ -9,14 +9,17 @@
         return $('#missing_people').each(function() {
             var template = $.templates(settings.item_template);
             var el = this;
-            var country = "en_US";
-            var params = {
-                limit: settings.max_results,
-                format: 'json',
-            };
-            $.getJSON(settings.feed_url, params).done(function(data) {
-                var missing = _.shuffle(data.objects);
-                template.link(el, missing);
+            geoip2.city(function(data) {
+                var params = {
+                    limit: settings.max_results,
+                    location_city: data.city.names.en,
+                    location_country: data.country.names.en,
+                    format: 'json',
+                };
+                $.getJSON(settings.feed_url, params).done(function(data) {
+                    var missing = _.shuffle(data.objects);
+                    template.link(el, missing);
+                });
             });
         });
     };
