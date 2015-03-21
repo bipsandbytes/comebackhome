@@ -13,6 +13,36 @@ person_found_panel p {
     font-family: "Proxima Nova", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
     color: #222222;
 }
+
+.pulsating {
+    -webkit-animation: color_change 2s infinite alternate;
+    -moz-animation: color_change 2s infinite alternate;
+    -ms-animation: color_change 2s infinite alternate;
+    -o-animation: color_change 2s infinite alternate;
+    animation: color_change 2s infinite alternate;
+}
+
+@-webkit-keyframes color_change {
+    from {color: gray;}
+    to {color: greenyellow;}
+}
+@-moz-keyframes color_change {
+    from {color: gray;}
+    to {color: greenyellow;}
+}
+@-ms-keyframes color_change {
+    from {color: gray;}
+    to {color: greenyellow;}
+}
+@-o-keyframes color_change {
+    from {color: gray;}
+    to {color: greenyellow;}
+}
+@keyframes color_change {
+    from {color: gray;}
+    to {color: greenyellow;}
+}
+
 ul.polaroids li {
     display: inline
 }
@@ -152,7 +182,6 @@ ul.polaroids li:nth-child(7n) img {
 
 #person_found_title {
     padding: 10px;
-    color: greenyellow;
     font-family: 'Roboto Condensed', sans-serif;
 }
 

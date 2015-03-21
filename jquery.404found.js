@@ -24,7 +24,7 @@
 
 $.fn.found.frame_template = "\
     <div id='person_found_frame'>\
-        <div id='person_found_title'>404 PERSON NOT FOUND\
+        <div id='person_found_title' class='pulsating'>404 PERSON NOT FOUND\
           <div id='person_found_desc'>Help find missing people in your area</div>\
         </div>\
         <div id='person_found_panel'>\
