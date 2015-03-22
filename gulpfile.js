@@ -1,5 +1,3 @@
-'use strict';
-
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var jshint = require('gulp-jshint');
@@ -11,6 +9,7 @@ var wrap = require('gulp-wrap');
 var stylish = require('jshint-stylish');
 var mergeStream = require('merge-stream');
 var header = require('gulp-header');
+var nib = require('nib');
 
 var paths = {
   js: 'src/jquery.404found.js',
@@ -25,19 +24,20 @@ var tasks = {
   js: function() {
     var js = gulp.src(paths.js);
     var templates = gulp.src(paths.templates)
-          .pipe(template({
-            dictionary: 'templates',
-            varname: 'data'
-          }))
-          // First concat all compiled template files ond add header
-          .pipe(concat(paths.destJs))
-          .pipe(header('var templates = {};\n'));
+      .pipe(template({
+        dictionary: 'templates',
+        varname: 'data'
+      }))
+      // First concat all compiled template files ond add header
+      .pipe(concat(paths.destJs))
+      .pipe(header('var templates = {};\n'));
     // then merge streams and concat javascript source with templates and add wrapper
     return mergeStream(templates, js)
       .pipe(concat(paths.destJs))
       .pipe(wrap({src: paths.wrapper}));
   },
-  stylus: function(options) {
+  stylus: function(compress) {
+    var options = {use: nib(), import: ['nib'], compress: compress};
     return gulp.src(paths.stylus)
         .pipe(stylus(options));
   }
@@ -65,9 +65,7 @@ gulp.task('stylus', function() {
 });
 
 gulp.task('stylus:min', function () {
-  return tasks.stylus({
-      compress: true
-    })
+  return tasks.stylus(true)
     .pipe(rename({ extname: '.min.css' }))
     .pipe(gulp.dest(paths.dest));
 });

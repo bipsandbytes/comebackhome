@@ -1,7 +1,10 @@
 {{~data :item}}
-<li>
-  <a href='{{= item.url }}' title='{{= item.name }}' target='_blank'>
-    <img src='{{= item.thumbnail_url }}' alt='{{= item.name }}'>
+<li class="comebackhome-person">
+  <a class="comebackhome-link" href='{{= item.url }}' title='{{= item.name }}' target='_blank'>
+    <div class="comebackhome-image" style="background-image:url({{= item.thumbnail_url }});" alt='{{= item.name }}'></div>
+    <div class="comebackhome-name-container">
+      <span class="comebackhome-name">{{= item.name }}</span>
+    </div>
   </a>
 </li>
 {{~}}
