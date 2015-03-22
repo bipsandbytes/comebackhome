@@ -50,5 +50,6 @@ var out='<div class="comebackhome-container"> <div class="comebackhome-header"> 
 };
 templates["items"] = function anonymous(data) {
 var out='';var arr1=data;if(arr1){var item,i1=-1,l1=arr1.length-1;while(i1<l1){item=arr1[i1+=1];out+='<li class="comebackhome-person"> <a class="comebackhome-link" href=\''+( item.url )+'\' title=\''+( item.name )+'\' target=\'_blank\'> <div class="comebackhome-image" style="background-image:url('+( item.thumbnail_url )+');" alt=\''+( item.name )+'\'></div> <div class="comebackhome-name-container"> <span class="comebackhome-name">'+( item.name )+'</span> </div> </a></li>';} } return out;
-};
+};return $.found;
+
 }));

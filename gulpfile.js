@@ -9,6 +9,7 @@ var wrap = require('gulp-wrap');
 var stylish = require('jshint-stylish');
 var mergeStream = require('merge-stream');
 var header = require('gulp-header');
+var footer = require('gulp-footer');
 var nib = require('nib');
 
 var paths = {
@@ -34,6 +35,7 @@ var tasks = {
     // then merge streams and concat javascript source with templates and add wrapper
     return mergeStream(templates, js)
       .pipe(concat(paths.destJs))
+      .pipe(footer('return $.found;\n'))
       .pipe(wrap({src: paths.wrapper}));
   },
   stylus: function(compress) {
