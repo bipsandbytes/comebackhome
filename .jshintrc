@@ -1,0 +1,20 @@
+{
+  "asi": false,
+  "boss": true,
+  "browser": true,
+  "curly": false,
+  "debug": false,
+  "devel": true,
+  "eqnull": true,
+  "evil": false,
+  "forin": false,
+  "latedef": true,
+  "laxbreak": true,
+  "loopfunc": true,
+  "nonbsp": true,
+  "predef": ["define", "require", "module", "exports"],
+  "regexp": false,
+  "sub": true,
+  "undef": true,
+  "unused": true
+}
