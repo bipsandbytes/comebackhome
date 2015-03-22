@@ -1,64 +1,37 @@
-/*globals jQuery*/
-(function(factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD
-        define(['jquery'], factory);
-    } else if (typeof module === 'object' && module.exports) {
-        factory(require('jquery'));
-    } else {
-        // Browser globals
-        factory(jQuery);
-    }
-}(function($) {
+/*globals $, templates*/
+var apiURL = 'http://52.0.62.66:8000/api/v1/person/';
 
-    $.fn.found = function(options) {
-        var settings = $.extend({}, $.fn.found.defaults, options);
-        this.append(settings.frame_template);
-        $("#person_found_frame").click(function(){
-            $("#person_found_panel").slideToggle();
+var defaults = {
+  maxResults: 10,
+};
 
-        });
-        return $('#missing_people').each(function() {
-            var template = $.templates(settings.item_template);
-            var el = this;
-            var country = "en_US";
-            var params = {
-                limit: settings.max_results,
-                format: 'json',
-            };
-            $.getJSON(settings.feed_url, params).done(function(data) {
-                var missing = _.shuffle(data.objects);
-                template.link(el, missing);
-            });
-        });
-    };
-    $.fn.found.frame_template = "\
-        <div id='person_found_frame'>\
-            <div id='person_found_title' class='pulsating'>404 PERSON NOT FOUND\
-              <div id='person_found_desc'>Help find missing people in your area</div>\
-            </div>\
-            <div id='person_found_panel'>\
-                <h1>Help find missing people in your area</h1>\
-                <ul class='polaroids '>\
-                    <div id='missing_people'></div>\
-                </ul>\
-            </div>\
-        </div>\
-    ";
+var selector = function(name) {
+  return '[data-js~="' + name + '"]';
+};
 
-    $.fn.found.item_template = "\
-        <li>\
-          <a href='{{:url}}' title='{{:name}}' target='_blank'>\
-              <img src='{{:thumbnail_url}}' alt='{{:name}}'>\
-          </a>\
-        </li>\
-    ";
+var getData = function(options) {
+  options = $.extend({format: 'json'}, defaults, options);
+  return $.getJSON(apiURL, options);
+};
 
-    $.fn.found.defaults = {
-      max_results: 10,
-      frame_template: $.fn.found.frame_template,
-      item_template: $.fn.found.item_template,
-      feed_url: "http://52.0.62.66:8000/api/v1/person/",
-    };
+$.found = function(target, options) {
+  options = $.extend({}, defaults, options);
+  var $target = target instanceof $ ? target : $(target);
+  $target.append(templates.body());
 
-}));
+  var $frame = $target.find(selector('404found-frame'));
+  var $panel = $target.find(selector('404found-panel'));
+  var $results = $target.find(selector('404found-results'));
+
+  $frame.click(function(){
+    $panel.slideToggle();
+  });
+
+  var template = templates.items;
+  getData(options).done(function(data) {
+    var missing = data.objects;
+    $results.html(template(missing));
+  });
+};
+
+$.found.getData = getData;
