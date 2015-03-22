@@ -2,11 +2,7 @@
 var apiURL = 'http://52.0.62.66:8000/api/v1/person/';
 
 var defaults = {
-  maxResults: 10,
-};
-
-var selector = function(name) {
-  return '[data-js~="' + name + '"]';
+  limit: 10
 };
 
 var getData = function(options) {
@@ -19,9 +15,9 @@ $.found = function(target, options) {
   var $target = target instanceof $ ? target : $(target);
   $target.append(templates.body());
 
-  var $frame = $target.find(selector('404found-frame'));
-  var $panel = $target.find(selector('404found-panel'));
-  var $results = $target.find(selector('404found-results'));
+  var $frame = $target.find('.comebackhome-container');
+  var $panel = $target.find('.comebackhome-panel');
+  var $results = $target.find('.comebackhome-results');
 
   $frame.click(function(){
     $panel.slideToggle();
