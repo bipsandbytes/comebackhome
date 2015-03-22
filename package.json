@@ -8,6 +8,7 @@
     "gulp": "^3.8.11",
     "gulp-concat": "^2.5.2",
     "gulp-dot-precompiler": "^0.3.0",
+    "gulp-footer": "^1.0.5",
     "gulp-header": "^1.2.2",
     "gulp-jshint": "^1.9.4",
     "gulp-rename": "^1.2.0",
