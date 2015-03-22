@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "homepage": "https://github.com/bipsandbytes/comebackhome",
   "authors": [
+    "Bipin Suresh <bipin@coursera.org>",
     "Yang Su <yang@coursera.org>"
   ],
   "main": "jquery.404found.js",
