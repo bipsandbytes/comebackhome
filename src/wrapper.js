@@ -10,5 +10,7 @@
     factory(jQuery);
   }
 }(function($) {
+  var templates = {};
   <%= contents %>
+  return $.found;
 }));
