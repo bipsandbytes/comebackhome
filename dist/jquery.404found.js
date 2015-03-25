@@ -11,15 +11,7 @@
   }
 }(function($) {
   var templates = {};
-templates["body"] = function anonymous(data
-/**/) {
-var out='<div class="comebackhome-container"> <div class="comebackhome-header"> <div class="comebackhome-pulluptab">^ Help find missing people</div> <div class="comebackhome-title">404 Person Not Found</div> </div> <div class="comebackhome-panel"> <ul class="comebackhome-results"></ul> </div></div>';return out;
-};
-templates["items"] = function anonymous(data
-/**/) {
-var out='';var arr1=data;if(arr1){var item,i1=-1,l1=arr1.length-1;while(i1<l1){item=arr1[i1+=1];out+='<li> <div class="comebackhome-person-frame"> <div class="comebackhome-person-col"> <img class="comebackhome-person-picture" src="'+( item.thumbnail_url )+'" alt="'+( item.name )+'"> </div> <div class="comebackhome-person-col"> <div class="comebackhome-person-name">'+( item.name )+'</div> <div class="comebackhome-person-location">'+( item.city )+', '+( item.country )+'</div> <div class="comebackhome-person-extra"> Missing since: '+( item.since )+'<br> Age now: 6 years </div> </div> </div></li>';} } return out;
-};
-/*globals $, templates*/
+  /*globals $, templates*/
 var apiURL = 'http://52.0.62.66:8000/api/v1/person/';
 
 var defaults = {
@@ -50,16 +42,24 @@ $.found = function(target, options) {
   });
 
   var template = templates.items;
+  // TODO: get a larger number of results, and then select a few
+  // TODO: so that you get a different set each time
   getData(options).done(function(data) {
     // shuffle the results around to randomize the results
-    // TODO: get a larger number of results, shuffle, and then show a few
-    // TODO: so that you get a different set each time
     var missing = shuffle(data.objects);
     $results.html(template(missing));
   });
 };
 
 $.found.getData = getData;
-return $.found;
 
+templates["body"] = function anonymous(data
+/**/) {
+var out='<div class="comebackhome-container"> <div class="comebackhome-header"> <div class="comebackhome-pulluptab">^ Help find missing people</div> <div class="comebackhome-title">404 Person Not Found</div> </div> <div class="comebackhome-panel"> <ul class="comebackhome-results"></ul> </div></div>';return out;
+};
+templates["items"] = function anonymous(data
+/**/) {
+var out='';var arr1=data;if(arr1){var item,i1=-1,l1=arr1.length-1;while(i1<l1){item=arr1[i1+=1];out+='<li> <div class="comebackhome-person-frame"> <div class="comebackhome-person-col"> <img class="comebackhome-person-picture" src="'+( item.thumbnail_url )+'" alt="'+( item.name )+'"> </div> <div class="comebackhome-person-col"> <div class="comebackhome-person-name">'+( item.name )+'</div> <div class="comebackhome-person-location">'+( item.city )+', '+( item.country )+'</div> <div class="comebackhome-person-extra"> Missing since: '+( item.since )+'<br> Age now: 6 years </div> </div> </div></li>';} } return out;
+};
+  return $.found;
 }));
