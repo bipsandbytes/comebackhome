@@ -10,6 +10,11 @@ var getData = function(options) {
   return $.getJSON(apiURL, options);
 };
 
+var shuffle = function(o) {
+  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
+};
+
 $.found = function(target, options) {
   options = $.extend({}, defaults, options);
   var $target = target instanceof $ ? target : $(target);
@@ -24,8 +29,11 @@ $.found = function(target, options) {
   });
 
   var template = templates.items;
+  // TODO: get a larger number of results, and then select a few
+  // TODO: so that you get a different set each time
   getData(options).done(function(data) {
-    var missing = data.objects;
+    // shuffle the results around to randomize the results
+    var missing = shuffle(data.objects);
     $results.html(template(missing));
   });
 };
