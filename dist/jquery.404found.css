@@ -10,10 +10,11 @@
 .comebackhome-header {
   padding: 20px;
   color: #eee;
+  overflow: hidden;
+  line-height: 20px;
 }
 .comebackhome-header .comebackhome-title {
   font-size: 18px;
-  margin-bottom: 12px;
   float: left;
 }
 .comebackhome-header .comebackhome-subheading {
