@@ -8,13 +8,12 @@ var uglify = require('gulp-uglify');
 var wrap = require('gulp-wrap');
 var stylish = require('jshint-stylish');
 var mergeStream = require('merge-stream');
-var header = require('gulp-header');
-var footer = require('gulp-footer');
 var nib = require('nib');
 
 var paths = {
   js: 'src/jquery.404found.js',
-  wrapper: 'src/wrapper.js',
+  jsWrapper: 'src/wrapper.js',
+  cssWrapper: 'src/injectCSS.js',
   stylus: 'src/jquery.404found.styl',
   templates: 'src/templates/*.html',
   dest: 'dist',
@@ -23,35 +22,49 @@ var paths = {
 
 var tasks = {
   js: function() {
-    var js = gulp.src(paths.js);
-    var templates = gulp.src(paths.templates)
+    return gulp.src(paths.js);
+  },
+  templates: function() {
+    return gulp.src(paths.templates)
       .pipe(template({
         dictionary: 'templates',
         varname: 'data'
       }))
-      // First concat all compiled template files ond add header
+      // concat all compiled template files ond add header
+      .pipe(concat(paths.destJs));
+  },
+  combine: function() {
+    // merge streams into 1 javascript source and add wrapper
+    return mergeStream.apply(null, arguments)
       .pipe(concat(paths.destJs))
-      .pipe(header('var templates = {};\n'));
-    // then merge streams and concat javascript source with templates and add wrapper
-    return mergeStream(templates, js)
-      .pipe(concat(paths.destJs))
-      .pipe(footer('return $.found;\n'))
-      .pipe(wrap({src: paths.wrapper}));
+      .pipe(wrap({src: paths.jsWrapper}));
   },
   stylus: function(compress) {
     var options = {use: nib(), import: ['nib'], compress: compress};
     return gulp.src(paths.stylus)
         .pipe(stylus(options));
+  },
+  injectCSS: function(compress) {
+    return tasks.stylus(true)
+      .pipe(wrap({src: paths.cssWrapper}))
   }
 };
 
 gulp.task('js', function() {
-  return tasks.js().pipe(gulp.dest(paths.dest));
+  return tasks.combine(tasks.templates(), tasks.js()).pipe(gulp.dest(paths.dest));
 });
 
 gulp.task('js:min', function() {
-  return tasks.js().pipe(uglify())
-    .pipe(rename({ extname: '.min.js' }))
+  return tasks.combine(tasks.templates(), tasks.js())
+    .pipe(uglify())
+    .pipe(rename({extname: '.min.js'}))
+    .pipe(gulp.dest(paths.dest));
+});
+
+gulp.task('bundle', function() {
+  return tasks.combine(tasks.templates(), tasks.js(), tasks.injectCSS())
+    .pipe(uglify())
+    .pipe(rename({extname: '.bundle.min.js'}))
     .pipe(gulp.dest(paths.dest));
 });
 
@@ -68,7 +81,7 @@ gulp.task('stylus', function() {
 
 gulp.task('stylus:min', function () {
   return tasks.stylus(true)
-    .pipe(rename({ extname: '.min.css' }))
+    .pipe(rename({extname: '.min.css'}))
     .pipe(gulp.dest(paths.dest));
 });
 
@@ -78,6 +91,6 @@ gulp.task('watch', function() {
   gulp.watch(paths.stylus, ['stylus']);
 });
 
-gulp.task('build', ['lint', 'js', 'js:min', 'stylus', 'stylus:min']);
+gulp.task('build', ['lint', 'js', 'js:min', 'stylus', 'stylus:min', 'bundle']);
 
 gulp.task('default', ['build']);
