@@ -59,7 +59,7 @@ var out='<div class="comebackhome-container"> <div class="comebackhome-header"> 
 };
 templates["items"] = function anonymous(data
 /**/) {
-var out='';var arr1=data;if(arr1){var item,i1=-1,l1=arr1.length-1;while(i1<l1){item=arr1[i1+=1];out+='<li> <div class="comebackhome-person-frame"> <div class="comebackhome-person-col"> <img class="comebackhome-person-picture" src="'+( item.thumbnail_url )+'" alt="'+( item.name )+'"> </div> <div class="comebackhome-person-col"> <div class="comebackhome-person-name">'+( item.name )+'</div> <div class="comebackhome-person-location">'+( item.city )+', '+( item.country )+'</div> <div class="comebackhome-person-extra"> Missing since: '+( new Date(item.since).toDateString() )+'<br> Age now: 6 years </div> </div> </div></li>';} } return out;
+var out='';var arr1=data;if(arr1){var item,i1=-1,l1=arr1.length-1;while(i1<l1){item=arr1[i1+=1];out+='<li> <a href="'+( item.url)+'" target=\'__blank\'> <div class="comebackhome-person-frame"> <div class="comebackhome-person-col"> <img class="comebackhome-person-picture" src="'+( item.thumbnail_url )+'" alt="'+( item.name )+'"> </div> <div class="comebackhome-person-col"> <div class="comebackhome-person-name">'+( item.name )+'</div> <div class="comebackhome-person-location">'+( item.city )+', '+( item.country )+'</div> <div class="comebackhome-person-extra"> Missing since '+( new Date(item.since).toDateString() )+'<br> Age now: 6 years<br> </div> </div> </div> </a></li>';} } return out;
 };
   return $.found;
 }));
