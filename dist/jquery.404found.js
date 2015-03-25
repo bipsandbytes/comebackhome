@@ -10,7 +10,16 @@
     factory(jQuery);
   }
 }(function($) {
-  /*globals $, templates*/
+  var templates = {};
+templates["body"] = function anonymous(data
+/**/) {
+var out='<div class="comebackhome-container"> <div class="comebackhome-header"> <div class="comebackhome-pulluptab">^ Help find missing people</div> <div class="comebackhome-title">404 Person Not Found</div> </div> <div class="comebackhome-panel"> <ul class="comebackhome-results"></ul> </div></div>';return out;
+};
+templates["items"] = function anonymous(data
+/**/) {
+var out='';var arr1=data;if(arr1){var item,i1=-1,l1=arr1.length-1;while(i1<l1){item=arr1[i1+=1];out+='<li> <div class="comebackhome-person-frame"> <div class="comebackhome-person-col"> <img class="comebackhome-person-picture" src="'+( item.thumbnail_url )+'" alt="'+( item.name )+'"> </div> <div class="comebackhome-person-col"> <div class="comebackhome-person-name">'+( item.name )+'</div> <div class="comebackhome-person-location">'+( item.city )+', '+( item.country )+'</div> <div class="comebackhome-person-extra"> Missing since: '+( item.since )+'<br> Age now: 6 years </div> </div> </div></li>';} } return out;
+};
+/*globals $, templates*/
 var apiURL = 'http://52.0.62.66:8000/api/v1/person/';
 
 var defaults = {
@@ -20,6 +29,11 @@ var defaults = {
 var getData = function(options) {
   options = $.extend({format: 'json'}, defaults, options);
   return $.getJSON(apiURL, options);
+};
+
+var shuffle = function(o) {
+  for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+    return o;
 };
 
 $.found = function(target, options) {
@@ -37,21 +51,15 @@ $.found = function(target, options) {
 
   var template = templates.items;
   getData(options).done(function(data) {
-    var missing = data.objects;
+    // shuffle the results around to randomize the results
+    // TODO: get a larger number of results, shuffle, and then show a few
+    // TODO: so that you get a different set each time
+    var missing = shuffle(data.objects);
     $results.html(template(missing));
   });
 };
 
 $.found.getData = getData;
-
-var templates = {};
-templates["body"] = function anonymous(data
-/**/) {
-var out='<div class="comebackhome-container"> <div class="comebackhome-header"> <div class="comebackhome-title">404 PERSON NOT FOUND</div> <div class="comebackhome-subheading">Help find missing people in your area</div> </div> <div class="comebackhome-panel"> <ul class="comebackhome-results"></ul> </div></div>';return out;
-};
-templates["items"] = function anonymous(data
-/**/) {
-var out='';var arr1=data;if(arr1){var item,i1=-1,l1=arr1.length-1;while(i1<l1){item=arr1[i1+=1];out+='<li class="comebackhome-person"> <a class="comebackhome-link" href=\''+( item.url )+'\' title=\''+( item.name )+'\' target=\'_blank\'> <div class="comebackhome-image" style="background-image:url('+( item.thumbnail_url )+');" alt=\''+( item.name )+'\'></div> <div class="comebackhome-name-container"> <span class="comebackhome-name">'+( item.name )+'</span> </div> </a></li>';} } return out;
-};return $.found;
+return $.found;
 
 }));

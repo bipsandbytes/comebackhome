@@ -1,10 +1,17 @@
 {{~data :item}}
-<li class="comebackhome-person">
-  <a class="comebackhome-link" href='{{= item.url }}' title='{{= item.name }}' target='_blank'>
-    <div class="comebackhome-image" style="background-image:url({{= item.thumbnail_url }});" alt='{{= item.name }}'></div>
-    <div class="comebackhome-name-container">
-      <span class="comebackhome-name">{{= item.name }}</span>
+<li>
+  <div class="comebackhome-person-frame">
+    <div class="comebackhome-person-col">
+      <img class="comebackhome-person-picture" src="{{= item.thumbnail_url }}" alt="{{= item.name }}">
     </div>
-  </a>
+    <div class="comebackhome-person-col">
+      <div class="comebackhome-person-name">{{= item.name }}</div>
+      <div class="comebackhome-person-location">{{= item.city }}, {{= item.country }}</div>
+      <div class="comebackhome-person-extra">
+        Missing since: {{= item.since }}<br>
+        Age now: 6 years
+      </div>
+    </div>
+  </div>
 </li>
 {{~}}
