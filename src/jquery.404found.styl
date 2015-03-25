@@ -5,69 +5,81 @@
   position: absolute
   bottom: 0
   left: 0
-  background: #444
 
 .comebackhome-header
   padding: 20px
   color #EEE
-  overflow: hidden
-  line-height: 20px
+  background #ec6952
 
   .comebackhome-title
-    font-size: 18px
-    float: left
+    font-size 18px
 
   .comebackhome-subheading
     font-size: 14px
     float: right
+
+  .comebackhome-pulluptab
+    position relative
+    top -50px
+    color #EEE
+    background #ec6952
+    float right
+    border-radius 10px
+    padding 10px
 
 .comebackhome-panel
   display: none
   padding-top: 15px
 
 .comebackhome-results
-  background: #444
   text-align: center
   margin: 0
   padding-left: 0
   list-style-type: none
 
-.comebackhome-person
-  display: inline-block
-  margin-right: 30px
-  margin-bottom: 30px
+.comebackhome-person-frame
+  width 33%
+  float left
+  padding-bottom 20px
 
-.comebackhome-link
-  width: 150px
-  display: inline-block
-  background: #EDEDED
-  padding: 10px 10px 15px
-  text-align: center
-  text-decoration: none
-  color: #333
-  border-radius: 2px
-  transition: all 150ms linear
+.comebackhome-person-name
+  margin-top 30px
+  font-family "Helvetica Neue", Helvetica, Arial, sans-serif
+  color #ec6952
+  font-size 16px
+  font-weight 400
+
+.comebackhome-person-location
+  margin-top 2px
+  color #666
+  font-size 14px
+
+.comebackhome-person-extra
+  position static
+  left 0px
+  right 0px
+  bottom 0px
+  margin-top 30px
+  font-family "Helvetica Neue", Helvetica, Arial, sans-serif
+  color #999
+  font-size 12px
+  line-height 15px
+
+.comebackhome-person-picture
+  display block
+  margin-top 10px
+  margin-right auto
+  margin-left auto
+  width 150px
+  height 150px
+  border-radius 50%
+  -webkit-filter grayscale(1)
 
   &:hover
-    box-shadow: 0 3px 6px rgba(0,0,0,.5)
-    position: relative
-    z-index: 5
-    transform: scale(1.15);
+    -webkit-filter: none
 
-.comebackhome-image
-  display: block
-  width: 150px
-  height: 150px
-  background-size: cover
-  background-repeat: no-repeat
-  margin-bottom: 10px
-
-.comebackhome-name-container
-  font-size: 18px
-  height: 50px
-  line-height: 50px
-
-.comebackhome-name
-  display: inline-block
-  vertical-align: middle
-  line-height: normal
+.comebackhome-person-col
+  width 40%
+  position relative
+  float left
+  text-align left

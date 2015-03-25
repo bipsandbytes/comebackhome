@@ -15,7 +15,7 @@
     $(function() {
       geoip2.city(function(data) {
         $.found($('body'), {
-          limit: 10,
+          limit: 6,
           location_city: data.city.names.en,
           location_country: data.country.names.en,
         });
