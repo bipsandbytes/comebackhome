@@ -86,11 +86,11 @@ gulp.task('stylus:min', function () {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(paths.js, ['lint', 'js']);
-  gulp.watch(paths.templates, ['js']);
-  gulp.watch(paths.stylus, ['stylus']);
+  gulp.watch(paths.js, ['lint', 'js', 'bundle']);
+  gulp.watch(paths.templates, ['js', 'bundle']);
+  gulp.watch(paths.stylus, ['stylus', 'bundle']);
 });
 
 gulp.task('build', ['lint', 'js', 'js:min', 'stylus', 'stylus:min', 'bundle']);
 
-gulp.task('default', ['build']);
+gulp.task('default', ['build', 'watch']);
