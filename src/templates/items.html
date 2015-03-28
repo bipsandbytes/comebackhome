@@ -6,11 +6,11 @@
       <img class="comebackhome-person-picture" src="http://res.cloudinary.com/comebackhome/image/fetch/w_150,h_150,c_fill,f_auto,g_face:center,e_grayscale/{{= item.thumbnail_url }}" alt="{{= item.name }}">
     </div>
     <div class="comebackhome-person-col">
-      <div class="comebackhome-person-name">{{= item.name }}</div>
-      <div class="comebackhome-person-location">{{= item.city }}, {{= item.country }}</div>
+      <div class="comebackhome-person-name">{{= item.display_name }}</div>
+      <div class="comebackhome-person-location">{{= item.display_location }}</div>
       <div class="comebackhome-person-extra">
         Missing since {{= new Date(item.since).toDateString() }}<br>
-        Age now: 6 years<br>
+        Age now: {{= item.age_now }}<br>
       </div>
     </div>
   </div>
