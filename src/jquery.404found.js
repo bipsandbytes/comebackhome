@@ -39,3 +39,13 @@ $.found = function(target, options) {
 };
 
 $.found.getData = getData;
+
+$(function() {
+    $.getJSON('https://freegeoip.net/json/', function(data) {  // Determine user's location
+        $.found($('body'), {
+            limit: 6,
+            location_city: data.city,
+            location_country: data.country_name,
+        });
+    });
+});
