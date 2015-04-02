@@ -20,7 +20,7 @@ templates["items"] = function anonymous(data
 var out='';var arr1=data;if(arr1){var item,i1=-1,l1=arr1.length-1;while(i1<l1){item=arr1[i1+=1];out+='<li> <a href="'+( item.url)+'" target=\'__blank\'> <div class="comebackhome-person-frame"> <div class="comebackhome-person-col"> <img class="comebackhome-person-picture" src="http://res.cloudinary.com/comebackhome/image/fetch/w_150,h_150,c_fill,f_auto,g_face:center,e_grayscale/'+( item.thumbnail_url )+'" alt="'+( item.name )+'"> </div> <div class="comebackhome-person-col"> <div class="comebackhome-person-name">'+( item.display_name )+'</div> <div class="comebackhome-person-location">'+( item.display_location )+'</div> <div class="comebackhome-person-extra"> Missing since '+( new Date(item.since).toDateString() )+'<br> Age now: '+( item.age_now )+'<br> </div> </div> </div> </a></li>';} } return out;
 };
 /*globals $, templates*/
-var apiURL = 'http://52.0.62.66:8000/api/v1/person/';
+var apiURL = 'http://comebackhome.org/api/v1/person/';
 
 var defaults = {
   max_results: 6

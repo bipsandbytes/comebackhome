@@ -1,5 +1,5 @@
 /*globals $, templates*/
-var apiURL = 'http://52.0.62.66:8000/api/v1/person/';
+var apiURL = 'http://comebackhome.org/api/v1/person/';
 
 var defaults = {
   max_results: 6
