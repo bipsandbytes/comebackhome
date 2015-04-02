@@ -49,5 +49,5 @@ $.found = function(target, options) {
 $.found.getData = getData;
 
 $(function() {
-  $.found($('body'), {});
+  $.found($('body'), {});  // TODO: do not call if already invoked by library user
 });
