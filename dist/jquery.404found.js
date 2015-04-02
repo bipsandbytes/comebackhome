@@ -56,8 +56,8 @@ $.found = function(target, options) {
 
   var template = templates.items;
   getUserLocation().done(function(location) {
-      options.location_city = location.city;
-      options.location_country = location.country_name;
+      options.lat = Math.round(location.latitude);
+      options.lon = Math.round(location.longitude);
       getData(options).done(function(data) {
         // shuffle the results around to randomize the results
         var missing = shuffle(data.objects).slice(0, options.max_results);
