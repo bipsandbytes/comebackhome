@@ -2,7 +2,7 @@
 var apiURL = 'http://52.0.62.66:8000/api/v1/person/';
 
 var defaults = {
-  limit: 6
+  max_results: 6
 };
 
 var getData = function(options) {
@@ -21,6 +21,7 @@ var shuffle = function(o) {
 
 $.found = function(target, options) {
   options = $.extend({}, defaults, options);
+  options.limit = Math.max(50, options.max_results);  // how many results to get
   var $target = target instanceof $ ? target : $(target);
   $target.append(templates.body());
 
@@ -33,14 +34,12 @@ $.found = function(target, options) {
   });
 
   var template = templates.items;
-  // TODO: get a larger number of results, and then select a few
-  // TODO: so that you get a different set each time
   getUserLocation().done(function(location) {
       options.location_city = location.city;
       options.location_country = location.country_name;
       getData(options).done(function(data) {
         // shuffle the results around to randomize the results
-        var missing = shuffle(data.objects);
+        var missing = shuffle(data.objects).slice(0, options.max_results);
         $results.html(template(missing));
       });
   });
