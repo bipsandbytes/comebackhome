@@ -1,23 +1,24 @@
 var gulp = require('gulp');
 var concat = require('gulp-concat');
+var header = require('gulp-header');
 var jshint = require('gulp-jshint');
 var rename = require('gulp-rename');
 var stylus = require('gulp-stylus');
 var template = require('gulp-dot-precompiler');
 var uglify = require('gulp-uglify');
+var umd = require('gulp-umd');
 var wrap = require('gulp-wrap');
 var stylish = require('jshint-stylish');
 var mergeStream = require('merge-stream');
 var nib = require('nib');
 
 var paths = {
-  js: 'src/jquery.404found.js',
-  jsWrapper: 'src/wrapper.js',
+  js: ['src/util.js', 'src/comebackhome.js'],
   cssWrapper: 'src/injectCSS.js',
-  stylus: 'src/jquery.404found.styl',
+  stylus: 'src/comebackhome.styl',
   templates: 'src/templates/*.html',
   dest: 'dist',
-  destJs: 'jquery.404found.js'
+  destJs: 'comebackhome.js'
 };
 
 var tasks = {
@@ -31,13 +32,18 @@ var tasks = {
         varname: 'data'
       }))
       // concat all compiled template files ond add header
-      .pipe(concat(paths.destJs));
+      .pipe(concat(paths.destJs))
+      .pipe(header('var templates = {};'))
   },
   combine: function() {
     // merge streams into 1 javascript source and add wrapper
     return mergeStream.apply(null, arguments)
       .pipe(concat(paths.destJs))
-      .pipe(wrap({src: paths.jsWrapper}));
+      .pipe(umd({
+        exports: function() {
+          return 'comebackhome';
+        }
+      }));
   },
   stylus: function(compress) {
     var options = {use: nib(), import: ['nib'], compress: compress};

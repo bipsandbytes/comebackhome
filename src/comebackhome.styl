@@ -1,0 +1,94 @@
+$image-size = 150px
+
+$primary-color = #EC6952
+$background-color = #FFFFFF
+$header-text-color = #EEE
+$body-text-color = #666
+$description-text-color = #999
+
+text-size($size)
+  font-size $size
+  line-height 1.2 * $size
+
+#comebackhome-container
+  font-family "Helvetica Neue", Helvetica, Arial, sans-serif
+  width 100%
+  max-height 100%
+  position absolute
+  bottom 0
+  left 0
+  background-color $background-color
+  z-index 100000
+
+.comebackhome-header
+  padding 20px
+  color $header-text-color
+  background-color $primary-color
+  cursor pointer
+
+  .comebackhome-title
+    text-size(18px)
+
+  .comebackhome-subheading
+    text-size(14px)
+    float right
+
+  .comebackhome-pulluptab
+    position absolute
+    top -30px
+    color $header-text-color
+    background-color $primary-color
+    right 10px
+    border-radius 10px
+    padding 10px
+
+#comebackhome-panel
+  display none
+  padding-top 15px
+
+.comebackhome-show
+  display block !important
+
+#comebackhome-results
+  overflow hidden
+  margin 0
+  padding-left 0
+  list-style-type none
+
+.comebackhome-person-frame
+  width 33%
+  float left
+  margin-bottom 20px
+  &:nth-of-type(3n + 1)
+    clear left
+
+.comebackhome-person-name
+  margin-top 15%
+  color $primary-color
+  text-size(16px)
+
+.comebackhome-person-location
+  color $body-text-color
+  text-size(14px)
+
+.comebackhome-person-extra
+  margin-top 30px
+  color $description-text-color
+  text-size(12px)
+
+.comebackhome-person-picture
+  display block
+  margin 10px auto
+  width 100%
+  max-width $image-size
+  max-height $image-size
+  border-radius 50%
+
+.comebackhome-person-column
+  width 50%
+  position relative
+  float left
+  text-align left
+
+.comebackhome-person-info
+  padding-left 10px
