@@ -1,19 +1,20 @@
 {{~data :item}}
-<li>
-  <a href="{{= item.url}}" target='__blank'>
-  <div class="comebackhome-person-frame">
-    <div class="comebackhome-person-col">
-      <img class="comebackhome-person-picture" src="http://res.cloudinary.com/comebackhome/image/fetch/w_150,h_150,c_fill,f_auto,g_face:center,e_grayscale/{{= item.thumbnail_url }}" alt="{{= item.name }}">
+<li class="comebackhome-person-frame">
+  <a href="{{= item.url}}" target="_blank">
+    <div class="comebackhome-person-column">
+      <img class="comebackhome-person-picture" src="http://res.cloudinary.com/comebackhome/image/fetch/w_150,h_150,c_fill,f_auto,g_face:center,e_grayscale/{{= item.thumbnail_url }}" alt={{= item.name }}>
     </div>
-    <div class="comebackhome-person-col">
+    <div class="comebackhome-person-column comebackhome-person-info">
       <div class="comebackhome-person-name">{{= item.display_name }}</div>
       <div class="comebackhome-person-location">{{= item.display_location }}</div>
       <div class="comebackhome-person-extra">
-        Missing since {{= new Date(item.since).toDateString() }}<br>
-        Age now: {{= item.age_now }}<br>
+        Missing since {{= new Date(item.since).toDateString() }}
+        {{? item.age_now }}
+          <br>
+          Age now: {{= item.age_now }}
+        {{?}}
       </div>
     </div>
-  </div>
   </a>
 </li>
 {{~}}
