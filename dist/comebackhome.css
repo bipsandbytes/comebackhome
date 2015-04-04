@@ -7,6 +7,7 @@
   left: 0;
   background-color: #fff;
   z-index: 100000;
+  position: fixed;
 }
 .comebackhome-header {
   padding: 20px;
