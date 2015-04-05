@@ -10,14 +10,14 @@
   position: fixed;
 }
 .comebackhome-header {
-  padding: 20px;
+  padding: 15px;
   color: #eee;
-  background-color: #ec6952;
+  background-color: #428bca;
   cursor: pointer;
 }
 .comebackhome-header .comebackhome-title {
-  font-size: 18px;
-  line-height: 21.599999999999998px;
+  font-size: 16px;
+  line-height: 19.2px;
 }
 .comebackhome-header .comebackhome-subheading {
   font-size: 14px;
@@ -28,11 +28,104 @@
   position: absolute;
   top: -30px;
   color: #eee;
-  background-color: #ec6952;
+  background-color: #428bca;
   right: 10px;
   -webkit-border-radius: 10px;
   border-radius: 10px;
   padding: 10px;
+}
+@-webkit-keyframes fade {
+  from {
+    opacity: 1;
+    -ms-filter: none;
+    filter: none;
+  }
+  50% {
+    opacity: 0.2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
+  }
+  to {
+    opacity: 1;
+    -ms-filter: none;
+    filter: none;
+  }
+}
+.comebackhome-header .comebackhome-title-throb {
+  -webkit-animation: fade 3000ms infinite;
+  -moz-animation: fade 3000ms infinite;
+  -o-animation: fade 3000ms infinite;
+  -ms-animation: fade 3000ms infinite;
+  animation: fade 3000ms infinite;
+  -webkit-animation: fade 3000ms infinite;
+}
+@-moz-keyframes fade {
+  from {
+    opacity: 1;
+    -ms-filter: none;
+    filter: none;
+  }
+  50% {
+    opacity: 0.2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
+  }
+  to {
+    opacity: 1;
+    -ms-filter: none;
+    filter: none;
+  }
+}
+@-webkit-keyframes fade {
+  from {
+    opacity: 1;
+    -ms-filter: none;
+    filter: none;
+  }
+  50% {
+    opacity: 0.2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
+  }
+  to {
+    opacity: 1;
+    -ms-filter: none;
+    filter: none;
+  }
+}
+@-o-keyframes fade {
+  from {
+    opacity: 1;
+    -ms-filter: none;
+    filter: none;
+  }
+  50% {
+    opacity: 0.2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
+  }
+  to {
+    opacity: 1;
+    -ms-filter: none;
+    filter: none;
+  }
+}
+@keyframes fade {
+  from {
+    opacity: 1;
+    -ms-filter: none;
+    filter: none;
+  }
+  50% {
+    opacity: 0.2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
+  }
+  to {
+    opacity: 1;
+    -ms-filter: none;
+    filter: none;
+  }
 }
 #comebackhome-panel {
   display: none;
@@ -57,7 +150,7 @@
 }
 .comebackhome-person-name {
   margin-top: 15%;
-  color: #ec6952;
+  color: #428bca;
   font-size: 16px;
   line-height: 19.2px;
 }
