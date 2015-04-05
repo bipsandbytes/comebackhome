@@ -131,6 +131,11 @@
   display: none;
   padding-top: 15px;
 }
+#comebackhome-panel .comebackhome-poweredby {
+  float: right;
+  padding-right: 10px;
+  font-size: 12px;
+}
 .comebackhome-show {
   display: block !important;
 }
