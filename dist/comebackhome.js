@@ -190,10 +190,12 @@ var comebackhome = function($target, options) {
 
   var $frame = document.getElementById('comebackhome-container');
   var $panel = document.getElementById('comebackhome-panel');
+  var $title = document.getElementById('comebackhome-title');
   var $results = document.getElementById('comebackhome-results');
 
   util.addEvent($frame, 'click', function() {
     util.toggleClass($panel, 'comebackhome-show');
+    util.toggleClass($title, 'comebackhome-title-throb');
   });
 
   var template = templates.items;
@@ -218,7 +220,7 @@ util.ready(function() {
 
 var templates = {};templates["body"] = function anonymous(data
 /**/) {
-var out='<div id="comebackhome-container"> <div class="comebackhome-header"> <div class="comebackhome-pulluptab">▲ Help find missing people</div> <div class="comebackhome-title">404 Person Not Found</div> </div> <div id="comebackhome-panel"> <ul id="comebackhome-results"></ul> </div></div>';return out;
+var out='<div id="comebackhome-container"> <div class="comebackhome-header"> <div class="comebackhome-pulluptab">▲ Help find missing people</div> <div id="comebackhome-title" class="comebackhome-title comebackhome-title-throb">404 Person Not Found</div> </div> <div id="comebackhome-panel"> <ul id="comebackhome-results"></ul> </div></div>';return out;
 };
 templates["items"] = function anonymous(data
 /**/) {
