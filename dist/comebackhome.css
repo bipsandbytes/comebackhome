@@ -2,12 +2,11 @@
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   width: 100%;
   max-height: 100%;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   background-color: #fff;
   z-index: 100000;
-  position: fixed;
 }
 .comebackhome-header {
   padding: 15px;
@@ -34,30 +33,12 @@
   border-radius: 10px;
   padding: 10px;
 }
-@-webkit-keyframes fade {
-  from {
-    opacity: 1;
-    -ms-filter: none;
-    filter: none;
-  }
-  50% {
-    opacity: 0.2;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
-    filter: alpha(opacity=20);
-  }
-  to {
-    opacity: 1;
-    -ms-filter: none;
-    filter: none;
-  }
-}
 .comebackhome-header .comebackhome-title-throb {
-  -webkit-animation: fade 3000ms infinite;
-  -moz-animation: fade 3000ms infinite;
-  -o-animation: fade 3000ms infinite;
-  -ms-animation: fade 3000ms infinite;
-  animation: fade 3000ms infinite;
-  -webkit-animation: fade 3000ms infinite;
+  -webkit-animation: fade 3s infinite;
+  -moz-animation: fade 3s infinite;
+  -o-animation: fade 3s infinite;
+  -ms-animation: fade 3s infinite;
+  animation: fade 3s infinite;
 }
 @-moz-keyframes fade {
   from {
@@ -135,6 +116,7 @@
   float: right;
   padding-right: 10px;
   font-size: 12px;
+  line-height: 14.399999999999999px;
 }
 .comebackhome-show {
   display: block !important;
