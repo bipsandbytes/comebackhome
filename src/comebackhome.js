@@ -24,10 +24,12 @@ var comebackhome = function($target, options) {
 
   var $frame = document.getElementById('comebackhome-container');
   var $panel = document.getElementById('comebackhome-panel');
+  var $title = document.getElementById('comebackhome-title');
   var $results = document.getElementById('comebackhome-results');
 
   util.addEvent($frame, 'click', function() {
     util.toggleClass($panel, 'comebackhome-show');
+    util.toggleClass($title, 'comebackhome-title-throb');
   });
 
   var template = templates.items;
