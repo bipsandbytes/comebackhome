@@ -220,7 +220,7 @@ util.ready(function() {
 
 var templates = {};templates["body"] = function anonymous(data
 /**/) {
-var out='<div id="comebackhome-container"> <div class="comebackhome-header"> <div class="comebackhome-pulluptab">▲ Help find missing people</div> <div id="comebackhome-title" class="comebackhome-title comebackhome-title-throb">404 Person Not Found</div> </div> <div id="comebackhome-panel"> <ul id="comebackhome-results"></ul> </div></div>';return out;
+var out='<div id="comebackhome-container"> <div class="comebackhome-header"> <div class="comebackhome-pulluptab">▲ Help find missing people</div> <div id="comebackhome-title" class="comebackhome-title comebackhome-title-throb">404 Person Not Found</div> </div> <div id="comebackhome-panel"> <ul id="comebackhome-results"></ul> <p class="comebackhome-poweredby">Powered by <a target="_blank"  href="http://comebackhome.org/">comebackhome.org</a></p> </div></div>';return out;
 };
 templates["items"] = function anonymous(data
 /**/) {
