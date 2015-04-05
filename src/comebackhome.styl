@@ -14,12 +14,11 @@ text-size($size)
   font-family "Helvetica Neue", Helvetica, Arial, sans-serif
   width 100%
   max-height 100%
-  position absolute
+  position fixed
   bottom 0
   left 0
   background-color $background-color
   z-index 100000
-  position: fixed
 
 .comebackhome-header
   padding 15px
@@ -51,17 +50,8 @@ text-size($size)
     to
       opacity 1.0
 
-  @-webkit-keyframes fade
-    from
-      opacity 1.0
-    50%
-      opacity 0.2
-    to
-      opacity 1.0
-
   .comebackhome-title-throb
-    animation fade 3000ms infinite
-    -webkit-animation fade 3000ms infinite
+    animation fade 3s infinite
 
 #comebackhome-panel
   display none
@@ -70,7 +60,7 @@ text-size($size)
   .comebackhome-poweredby
     float right
     padding-right 10px
-    font-size 12px
+    text-size(12px)
 
 .comebackhome-show
   display block !important
