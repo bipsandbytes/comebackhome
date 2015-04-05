@@ -44,6 +44,8 @@ var comebackhome = function($target, options) {
       $results.innerHTML = template(missing);
     });
   });
+
+  util.trackUsage();
 };
 
 comebackhome.getData = getData;
