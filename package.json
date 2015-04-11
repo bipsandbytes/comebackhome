@@ -17,13 +17,17 @@
     "gulp-wrap": "^0.11.0",
     "jshint-stylish": "^1.0.1",
     "merge-stream": "^0.1.7",
-    "nib": "^1.1.0"
+    "nib": "^1.1.0",
+    "precommit-hook": "^2.0.1"
   },
-  "scripts": {},
+  "scripts": {
+    "build": "gulp build"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/bipsandbytes/comebackhome.git"
   },
+  "pre-commit": ["build"],
   "author": "Bipin Suresh <bipin@coursera.org>",
   "contributors": [
     "Yang Su <yang@coursera.org>"
