@@ -171,13 +171,22 @@ util.trackUsage = function() {
     document.getElementsByTagName('head')[0].appendChild(googleAnalyticsScript);
 };
 
+util.documentWidth = function() {
+  var actualWidth = window.innerWidth ||
+    document.documentElement.clientWidth ||
+    document.body.clientWidth ||
+    document.body.offsetWidth;
+  return actualWidth;
+};
+
 /*globals util, templates*/
 
 var apiURL = 'http://comebackhome.org/api/v1/person/';
 var ipURL = 'https://freegeoip.net/json/';
 
 var defaults = {
-  limit: 6
+  maxResults: Math.floor(util.documentWidth()/400) * 2,
+  limit: 50,
 };
 
 var getData = function(options) {
@@ -213,7 +222,7 @@ var comebackhome = function($target, options) {
     }, defaults, options);
     getData(options).success(function(data) {
       // shuffle the results around to randomize the results
-      var missing = util.shuffle(data.objects);
+      var missing = util.shuffle(data.objects).slice(0, options.maxResults);
       $results.innerHTML = template(missing);
     });
   });

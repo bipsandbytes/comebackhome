@@ -110,7 +110,6 @@
 }
 #comebackhome-panel {
   display: none;
-  padding-top: 15px;
 }
 #comebackhome-panel .comebackhome-poweredby {
   float: right;
@@ -123,17 +122,17 @@
 }
 #comebackhome-results {
   overflow: hidden;
-  margin: 0;
-  padding-left: 0;
   list-style-type: none;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0;
+  margin-top: 0;
+  padding: 0;
 }
 .comebackhome-person-frame {
-  width: 33%;
+  vertical-align: middle;
+  width: 400px;
   float: left;
-  margin-bottom: 20px;
-}
-.comebackhome-person-frame:nth-of-type(3n + 1) {
-  clear: left;
 }
 .comebackhome-person-name {
   margin-top: 15%;
@@ -162,8 +161,12 @@
   border-radius: 50%;
 }
 .comebackhome-person-column {
-  width: 50%;
   position: relative;
   float: left;
   text-align: left;
+}
+.comebackhome-person-info {
+  padding-right: 10px;
+  padding-left: 10px;
+  width: 250px;
 }
