@@ -1,6 +1,7 @@
 {
   "name": "comebackhome",
   "version": "0.0.1",
+  "description": "Add an unintrusive banner with photos of missing people to your site's 404 pages in the off-chance that someone who visits your site might recognize them.",
   "homepage": "https://github.com/bipsandbytes/comebackhome",
   "authors": [
     "Bipin Suresh <bipin@coursera.org>",
