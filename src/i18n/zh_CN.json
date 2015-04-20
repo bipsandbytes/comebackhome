@@ -1,0 +1,7 @@
+{
+    "▲ Help find missing people": "▲ 帮助寻找失踪的人",
+    "404 Person Not Found": "404 沒有找到人",
+    "Powered by <a target=\"_blank\" href=\"http://comebackhome.org/\">comebackhome.org</a>": "由<a target=\"_blank\" href=\"http://comebackhome.org/\">comebackhome.org</a>提供支持",
+    "Missing since {{= new Date(item.since).toLocaleDateString() }}": "自{{= new Date(item.since).toLocaleDateString() }}以来失踪",
+    "Age now: {{= item.age_now }}": "现在的年龄: {{= item.age_now }}岁"
+}

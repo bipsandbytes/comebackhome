@@ -47,5 +47,15 @@ We use the following tools for development:
 
 The plugin's code is contained in `src/comebackhome.js` and the styles are contained in `src/comebackhome.styl`. The templates of how the results are displayed are captured in the files in the `src/templates` directory.
 
+### Internationalization
+
+The translatable source strings and their translations are hosted on [Transifex](https://www.transifex.com/projects/p/comebackhome/).
+
+To build an internationalized version of comebackhome, run the following command. The language version will be written to `dist/<language_code>`
+
+```sh
+$ gulp build --language zh_CN
+```
+
 ## License
 Copyright (c) 2015 Bipin Suresh. Licensed under the GPL license.

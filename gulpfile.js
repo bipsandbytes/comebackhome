@@ -1,3 +1,6 @@
+var _ = require('lodash');
+var fs = require('fs');
+var path = require('path');
 var gulp = require('gulp');
 var concat = require('gulp-concat');
 var header = require('gulp-header');
@@ -6,18 +9,38 @@ var rename = require('gulp-rename');
 var stylus = require('gulp-stylus');
 var template = require('gulp-dot-precompiler');
 var uglify = require('gulp-uglify');
+var replace = require('gulp-replace');
 var umd = require('gulp-umd');
 var wrap = require('gulp-wrap');
 var stylish = require('jshint-stylish');
 var mergeStream = require('merge-stream');
 var nib = require('nib');
 
+var minimist = require('minimist');
+
+var knownOptions = {
+  string: 'language',
+  default: { env: '' }
+};
+
+var options = minimist(process.argv.slice(2), knownOptions);
+
+var dest = 'dist';
+var translations = {};
+try {
+  var content = fs.readFileSync('./src/i18n/' + options.language + '.json', 'utf8');
+  translations = JSON.parse(content);
+  dest = path.join(dest, options.language);
+} catch (e) {
+  console.error('Translations for ' + options.language + ' doesn\'t exist.');
+}
+
 var paths = {
   js: ['src/util.js', 'src/comebackhome.js'],
   cssWrapper: 'src/injectCSS.js',
   stylus: 'src/comebackhome.styl',
   templates: 'src/templates/*.html',
-  dest: 'dist',
+  dest: dest,
   destJs: 'comebackhome.js'
 };
 
@@ -26,7 +49,11 @@ var tasks = {
     return gulp.src(paths.js);
   },
   templates: function() {
-    return gulp.src(paths.templates)
+    var stream = _.reduce(translations, function(s, value, key) {
+      return s.pipe(replace(key, value));
+    }, gulp.src(paths.templates));
+
+    return stream
       .pipe(template({
         dictionary: 'templates',
         varname: 'data'
@@ -51,7 +78,7 @@ var tasks = {
         .pipe(stylus(options));
   },
   injectCSS: function(compress) {
-    return tasks.stylus(true)
+    return tasks.stylus(compress)
       .pipe(wrap({src: paths.cssWrapper}))
   }
 };
@@ -68,7 +95,7 @@ gulp.task('js:min', function() {
 });
 
 gulp.task('bundle', function() {
-  return tasks.combine(tasks.templates(), tasks.js(), tasks.injectCSS())
+  return tasks.combine(tasks.templates(), tasks.js(), tasks.injectCSS(true))
     .pipe(uglify())
     .pipe(rename({extname: '.bundle.min.js'}))
     .pipe(gulp.dest(paths.dest));
