@@ -1,0 +1,7 @@
+{
+  "▲ Help find missing people": "▲ Help find missing people",
+  "404 Person Not Found": "404 Person Not Found",
+  "Powered by <a target=\"_blank\" href=\"http://comebackhome.org/\">comebackhome.org</a>": "Powered by <a target=\"_blank\" href=\"http://comebackhome.org/\">comebackhome.org</a>",
+  "Missing since {{= new Date(item.since).toLocaleDateString() }}": "Missing since {{= new Date(item.since).toLocaleDateString() }}",
+  "Age now: {{= item.age_now }}": "Age now: {{= item.age_now }}"
+}

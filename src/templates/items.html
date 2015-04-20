@@ -8,7 +8,7 @@
       <div class="comebackhome-person-name">{{= item.display_name }}</div>
       <div class="comebackhome-person-location">{{= item.display_location }}</div>
       <div class="comebackhome-person-extra">
-        Missing since {{= new Date(item.since).toDateString() }}
+        Missing since {{= new Date(item.since).toLocaleDateString() }}
         {{? item.age_now }}
           <br>
           Age now: {{= item.age_now }}
