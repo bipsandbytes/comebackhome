@@ -161,3 +161,34 @@ util.trackUsage = function() {
     googleAnalyticsScript.text = "(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','http://www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-61554464-1', 'auto'); ga('send', 'pageview');";
     document.getElementsByTagName('head')[0].appendChild(googleAnalyticsScript);
 };
+
+// http://stackoverflow.com/questions/1766861/find-the-exact-height-and-width-of-the-viewport-in-a-cross-browser-way-no-proto
+util.getViewport = function() {
+
+  var viewPortWidth;
+  var viewPortHeight;
+
+  // the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+  if (typeof window.innerWidth != 'undefined') {
+    viewPortWidth = window.innerWidth;
+    viewPortHeight = window.innerHeight;
+  }
+
+  // IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+  else if (typeof document.documentElement != 'undefined'
+    && typeof document.documentElement.clientWidth !=
+    'undefined' && document.documentElement.clientWidth !== 0) {
+    viewPortWidth = document.documentElement.clientWidth;
+    viewPortHeight = document.documentElement.clientHeight;
+  }
+
+  // older versions of IE
+  else {
+    viewPortWidth = document.getElementsByTagName('body')[0].clientWidth;
+    viewPortHeight = document.getElementsByTagName('body')[0].clientHeight;
+  }
+  return {
+    width: viewPortWidth,
+    height: viewPortHeight,
+  };
+};

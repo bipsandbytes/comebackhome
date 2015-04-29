@@ -3,12 +3,11 @@
 var apiURL = 'http://comebackhome.org/api/v1/person/';
 var ipURL = 'https://freegeoip.net/json/';
 
-var defaults = {
-  limit: 6
-};
+var itemWidth = 310;
+var itemHeight = 180;
 
 var getData = function(options) {
-  return util.getJSON(apiURL, util.extend({}, defaults, options));
+  return util.getJSON(apiURL, util.extend({}, options));
 };
 
 var getUserLocation = util.getJSON.bind(util, ipURL);
@@ -18,6 +17,19 @@ var comebackhome = function($target, options) {
   if (called) return;
 
   called = true;
+
+  var viewport = util.getViewport();
+  var constrain = function(value) {
+    return Math.max(Math.floor(value), 1);
+  };
+  var columns = constrain(viewport.width / itemWidth);
+  var rows = constrain(viewport.height / 2 / itemHeight);
+  var containerWidth = columns * itemWidth;
+
+  var defaults = {
+    limit: rows * columns
+  };
+
   var element = document.createElement('div');
   element.innerHTML = templates.body();
   $target.appendChild(element);
@@ -26,11 +38,7 @@ var comebackhome = function($target, options) {
   var $panel = document.getElementById('comebackhome-panel');
   var $title = document.getElementById('comebackhome-title');
   var $results = document.getElementById('comebackhome-results');
-
-  util.addEvent($frame, 'click', function() {
-    util.toggleClass($panel, 'comebackhome-show');
-    util.toggleClass($title, 'comebackhome-title-throb');
-  });
+  $results.style.width = containerWidth + 'px';
 
   var template = templates.items;
   getUserLocation().success(function(location) {
@@ -42,6 +50,10 @@ var comebackhome = function($target, options) {
       // shuffle the results around to randomize the results
       var missing = util.shuffle(data.objects);
       $results.innerHTML = template(missing);
+      util.addEvent($frame, 'click', function() {
+        util.toggleClass($panel, 'comebackhome-show');
+        util.toggleClass($title, 'comebackhome-title-throb');
+      });
     });
   });
 
