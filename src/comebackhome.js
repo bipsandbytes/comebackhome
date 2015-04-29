@@ -1,16 +1,21 @@
 /*globals util, templates*/
 
-var apiURL = 'http://comebackhome.org/api/v1/person/';
-var ipURL = 'https://freegeoip.net/json/';
+var API_URL = 'http://comebackhome.org/api/v1/person/';
+var IPLOOKUP_URL = 'https://freegeoip.net/json/';
+// default to San Francisco
+var DEFAULT_LOCATION = {
+  latitude: 37.7833,
+  longitude: -122.4167
+};
 
 var itemWidth = 310;
 var itemHeight = 180;
 
 var getData = function(options) {
-  return util.getJSON(apiURL, util.extend({}, options));
+  return util.getJSON(API_URL, util.extend({}, options));
 };
 
-var getUserLocation = util.getJSON.bind(util, ipURL);
+var getUserLocation = util.getJSON.bind(util, IPLOOKUP_URL);
 
 var called = false;
 var comebackhome = function($target, options) {
@@ -41,7 +46,7 @@ var comebackhome = function($target, options) {
   $results.style.width = containerWidth + 'px';
 
   var template = templates.items;
-  getUserLocation().success(function(location) {
+  var showResults = function(location) {
     options = util.extend({
       lat: Math.round(location.latitude),
       lon: Math.round(location.longitude)
@@ -55,7 +60,10 @@ var comebackhome = function($target, options) {
         util.toggleClass($title, 'comebackhome-title-throb');
       });
     });
-  });
+  };
+  getUserLocation()
+    .success(showResults)
+    .error(showResults.bind(null, DEFAULT_LOCATION));
 
   util.trackUsage();
 };
