@@ -220,7 +220,7 @@ var out='<div id="comebackhome-container"> <div class="comebackhome-header"> <di
 };
 /*globals util, templates*/
 
-var API_URL = 'http://comebackhome.org/api/v1/person/';
+var API_URL = 'https://comebackhome.org/api/v1/person/';
 var IPLOOKUP_URL = 'https://freegeoip.net/json/';
 var DEFAULTS = {
   itemWidth: 310,
