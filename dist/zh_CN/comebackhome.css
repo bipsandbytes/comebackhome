@@ -1,3 +1,18 @@
+.comebackhome-header .comebackhome-title,
+.comebackhome-person-name {
+  font-size: 16px;
+  line-height: 19.2px;
+}
+.comebackhome-header .comebackhome-subheading,
+.comebackhome-person-location {
+  font-size: 14px;
+  line-height: 16.8px;
+}
+#comebackhome-panel .comebackhome-poweredby,
+.comebackhome-person-extra {
+  font-size: 12px;
+  line-height: 14.399999999999999px;
+}
 #comebackhome-container {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   width: 100%;
@@ -9,28 +24,22 @@
   z-index: 100000;
 }
 .comebackhome-header {
-  padding: 15px;
+  padding: 10px;
   color: #eee;
   background-color: #428bca;
   cursor: pointer;
 }
-.comebackhome-header .comebackhome-title {
-  font-size: 16px;
-  line-height: 19.2px;
-}
 .comebackhome-header .comebackhome-subheading {
-  font-size: 14px;
-  line-height: 16.8px;
   float: right;
 }
 .comebackhome-header .comebackhome-pulluptab {
   position: absolute;
-  top: -30px;
+  top: -40px;
   color: #eee;
   background-color: #428bca;
   right: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
+  -webkit-border-radius: 10px 10px 0 0;
+  border-radius: 10px 10px 0 0;
   padding: 10px;
 }
 .comebackhome-header .comebackhome-title-throb {
@@ -110,13 +119,11 @@
 }
 #comebackhome-panel {
   display: none;
-  padding-top: 15px;
+  padding-top: 10px;
 }
 #comebackhome-panel .comebackhome-poweredby {
   float: right;
   padding-right: 10px;
-  font-size: 12px;
-  line-height: 14.399999999999999px;
 }
 .comebackhome-show {
   display: block !important;
@@ -130,29 +137,24 @@
 }
 .comebackhome-person-frame {
   width: 310px;
+  height: 150px;
   float: left;
-  margin-bottom: 20px;
+  margin: 10px 0;
 }
 .comebackhome-person-name {
   margin-top: 15%;
   color: #428bca;
-  font-size: 16px;
-  line-height: 19.2px;
 }
 .comebackhome-person-location {
   color: #666;
-  font-size: 14px;
-  line-height: 16.8px;
 }
 .comebackhome-person-extra {
-  margin-top: 30px;
+  margin-top: 15%;
   color: #999;
-  font-size: 12px;
-  line-height: 14.399999999999999px;
 }
 .comebackhome-person-picture {
   display: block;
-  margin: 10px auto;
+  margin: 0 auto;
   width: 100%;
   max-width: 150px;
   max-height: 150px;

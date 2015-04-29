@@ -204,89 +204,107 @@ util.getViewport = function() {
   };
 };
 
+util.once = function(f) {
+  var called = false;
+  return function() {
+    if (!called) {
+      called = true;
+      f.apply(this, arguments);
+    }
+  };
+};
+
+var templates = {};templates["body"] = function anonymous(data
+/**/) {
+var out='<div id="comebackhome-container"> <div class="comebackhome-header"> <div class="comebackhome-pulluptab">▲ Help find missing people</div> <div id="comebackhome-title" class="comebackhome-title comebackhome-title-throb">404 Person Not Found</div> </div> <div id="comebackhome-panel"> <ul id="comebackhome-results"> ';var arr1=data;if(arr1){var item,i1=-1,l1=arr1.length-1;while(i1<l1){item=arr1[i1+=1];out+=' <li class="comebackhome-person-frame"> <a href="'+( item.url)+'" target="_blank"> <div class="comebackhome-person-column"> <img class="comebackhome-person-picture" src="http://res.cloudinary.com/comebackhome/image/fetch/w_150,h_150,c_fill,f_auto,g_face:center,e_grayscale/'+( item.thumbnail_url )+'" alt='+( item.name )+'> </div> <div class="comebackhome-person-column comebackhome-person-info"> <div class="comebackhome-person-name">'+( item.display_name )+'</div> <div class="comebackhome-person-location">'+( item.display_location )+'</div> <div class="comebackhome-person-extra"> Missing since '+( new Date(item.since).toLocaleDateString() )+' ';if(item.age_now){out+=' <br> Age now: '+( item.age_now )+' ';}out+=' </div> </div> </a> </li> ';} } out+=' </ul> <p class="comebackhome-poweredby"> Powered by <a target="_blank" href="http://comebackhome.org/">comebackhome.org</a> </p> </div></div>';return out;
+};
 /*globals util, templates*/
 
 var API_URL = 'http://comebackhome.org/api/v1/person/';
 var IPLOOKUP_URL = 'https://freegeoip.net/json/';
+var DEFAULTS = {
+  itemWidth: 310,
+  itemHeight: 180,
+  timeout: 2000,
+  heightRatio: 0.5
+};
 // default to San Francisco
 var DEFAULT_LOCATION = {
   latitude: 37.7833,
   longitude: -122.4167
 };
 
-var itemWidth = 310;
-var itemHeight = 180;
-
 var getData = function(options) {
   return util.getJSON(API_URL, util.extend({}, options));
 };
 
-var getUserLocation = util.getJSON.bind(util, IPLOOKUP_URL);
+var getUserLocation = function(callback, timeout) {
+  var cb = util.once(callback);
+  var cbDefaultLocation = cb.bind(this, DEFAULT_LOCATION);
+  util.getJSON(IPLOOKUP_URL)
+    .success(cb)
+    .error(cbDefaultLocation);
+  setTimeout(cbDefaultLocation, timeout || 0);
+};
 
-var called = false;
-var comebackhome = function($target, options) {
-  if (called) return;
+var constrain = function(value) {
+  return Math.max(Math.floor(value), 1);
+};
 
-  called = true;
+var comebackhome = util.once(function($target, options) {
+  options = util.extend(DEFAULTS, options);
+
+  var itemWidth = options.itemWidth;
+  var itemHeight = options.itemHeight;
 
   var viewport = util.getViewport();
-  var constrain = function(value) {
-    return Math.max(Math.floor(value), 1);
-  };
   var columns = constrain(viewport.width / itemWidth);
-  var rows = constrain(viewport.height / 2 / itemHeight);
+  var rows = constrain(viewport.height * options.heightRatio / itemHeight);
   var containerWidth = columns * itemWidth;
 
-  var defaults = {
-    limit: rows * columns
+  var render = function(missing) {
+    var element = document.createElement('div');
+    element.innerHTML = templates.body(missing);
+    $target.appendChild(element);
+
+    var $frame = document.getElementById('comebackhome-container');
+    var $panel = document.getElementById('comebackhome-panel');
+    var $title = document.getElementById('comebackhome-title');
+    var $results = document.getElementById('comebackhome-results');
+
+    $results.style.width = containerWidth + 'px';
+    util.addEvent($frame, 'click', function() {
+      util.toggleClass($panel, 'comebackhome-show');
+      util.toggleClass($title, 'comebackhome-title-throb');
+    });
+
   };
 
-  var element = document.createElement('div');
-  element.innerHTML = templates.body();
-  $target.appendChild(element);
-
-  var $frame = document.getElementById('comebackhome-container');
-  var $panel = document.getElementById('comebackhome-panel');
-  var $title = document.getElementById('comebackhome-title');
-  var $results = document.getElementById('comebackhome-results');
-  $results.style.width = containerWidth + 'px';
-
-  var template = templates.items;
   var showResults = function(location) {
-    options = util.extend({
+    var params = {
+      format: 'json',
       lat: Math.round(location.latitude),
-      lon: Math.round(location.longitude)
-    }, defaults, options);
-    getData(options).success(function(data) {
+      lon: Math.round(location.longitude),
+      limit: options.limit || rows * columns
+    };
+    getData(params).success(function(data) {
       // shuffle the results around to randomize the results
-      var missing = util.shuffle(data.objects);
-      $results.innerHTML = template(missing);
-      util.addEvent($frame, 'click', function() {
-        util.toggleClass($panel, 'comebackhome-show');
-        util.toggleClass($title, 'comebackhome-title-throb');
-      });
+      render(util.shuffle(data.objects));
     });
   };
-  getUserLocation()
-    .success(showResults)
-    .error(showResults.bind(null, DEFAULT_LOCATION));
+
+  getUserLocation(showResults, options.timeout);
 
   util.trackUsage();
-};
+});
 
 comebackhome.getData = getData;
 
-util.ready(function() {
-  comebackhome(document.body, {});
+util.ready(function(status) {
+  if (status != 'lazy') {
+    comebackhome(document.body, {});
+  }
 });
 
-var templates = {};templates["body"] = function anonymous(data
-/**/) {
-var out='<div id="comebackhome-container"> <div class="comebackhome-header"> <div class="comebackhome-pulluptab">▲ Help find missing people</div> <div id="comebackhome-title" class="comebackhome-title comebackhome-title-throb">404 Person Not Found</div> </div> <div id="comebackhome-panel"> <ul id="comebackhome-results"></ul> <p class="comebackhome-poweredby"> Powered by <a target="_blank" href="http://comebackhome.org/">comebackhome.org</a> </p> </div></div>';return out;
-};
-templates["items"] = function anonymous(data
-/**/) {
-var out='';var arr1=data;if(arr1){var item,i1=-1,l1=arr1.length-1;while(i1<l1){item=arr1[i1+=1];out+='<li class="comebackhome-person-frame"> <a href="'+( item.url)+'" target="_blank"> <div class="comebackhome-person-column"> <img class="comebackhome-person-picture" src="http://res.cloudinary.com/comebackhome/image/fetch/w_150,h_150,c_fill,f_auto,g_face:center,e_grayscale/'+( item.thumbnail_url )+'" alt='+( item.name )+'> </div> <div class="comebackhome-person-column comebackhome-person-info"> <div class="comebackhome-person-name">'+( item.display_name )+'</div> <div class="comebackhome-person-location">'+( item.display_location )+'</div> <div class="comebackhome-person-extra"> Missing since '+( new Date(item.since).toLocaleDateString() )+' ';if(item.age_now){out+=' <br> Age now: '+( item.age_now )+' ';}out+=' </div> </div> </a></li>';} } return out;
-};
 return comebackhome;
 }));
