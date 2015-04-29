@@ -1,7 +1,8 @@
 $column-width = 150px
-$gutter-width = 10px
+$margin = 10px
 $image-size = $column-width
-$item-width = $column-width * 2 + $gutter-width
+$item-width = $column-width * 2 + $margin
+$item-height = $column-width
 
 $primary-color = #428BCA
 $background-color = #FFFFFF
@@ -12,6 +13,15 @@ $description-text-color = #999
 text-size($size)
   font-size $size
   line-height 1.2 * $size
+
+$title-text
+  text-size(16px)
+
+$subhead-text
+  text-size(14px)
+
+$body-text
+  text-size(12px)
 
 #comebackhome-container
   font-family "Helvetica Neue", Helvetica, Arial, sans-serif
@@ -24,26 +34,27 @@ text-size($size)
   z-index 100000
 
 .comebackhome-header
-  padding 15px
+  padding $margin
   color $header-text-color
   background-color $primary-color
   cursor pointer
 
   .comebackhome-title
-    text-size(16px)
+    @extend $title-text
 
   .comebackhome-subheading
-    text-size(14px)
+    @extend $subhead-text
     float right
 
   .comebackhome-pulluptab
     position absolute
-    top -30px
+    top -40px
     color $header-text-color
     background-color $primary-color
-    right 10px
-    border-radius 10px
-    padding 10px
+    right $margin
+    // border-top-left-radius $margin
+    border-radius $margin $margin 0 0
+    padding $margin
 
   @keyframes fade
     from
@@ -58,12 +69,12 @@ text-size($size)
 
 #comebackhome-panel
   display none
-  padding-top 15px
+  padding-top $margin
 
   .comebackhome-poweredby
     float right
-    padding-right 10px
-    text-size(12px)
+    padding-right $margin
+    @extend $body-text
 
 .comebackhome-show
   display block !important
@@ -77,26 +88,27 @@ text-size($size)
 
 .comebackhome-person-frame
   width $item-width
+  height $item-height
   float left
-  margin-bottom 20px
+  margin $margin 0
 
 .comebackhome-person-name
   margin-top 15%
   color $primary-color
-  text-size(16px)
+  @extend $title-text
 
 .comebackhome-person-location
   color $body-text-color
-  text-size(14px)
+  @extend $subhead-text
 
 .comebackhome-person-extra
-  margin-top 30px
+  margin-top 15%
   color $description-text-color
-  text-size(12px)
+  @extend $body-text
 
 .comebackhome-person-picture
   display block
-  margin 10px auto
+  margin 0 auto
   width 100%
   max-width $image-size
   max-height $image-size
@@ -104,7 +116,7 @@ text-size($size)
 
 .comebackhome-person-column
   width $column-width
-  margin-right $gutter-width
+  margin-right $margin
   position relative
   float left
   text-align left
