@@ -1,4 +1,7 @@
-$image-size = 150px
+$column-width = 150px
+$gutter-width = 10px
+$image-size = $column-width
+$item-width = $column-width * 2 + $gutter-width
 
 $primary-color = #428BCA
 $background-color = #FFFFFF
@@ -70,13 +73,12 @@ text-size($size)
   margin 0
   padding-left 0
   list-style-type none
+  margin 0 auto
 
 .comebackhome-person-frame
-  width 33%
+  width $item-width
   float left
   margin-bottom 20px
-  &:nth-of-type(3n + 1)
-    clear left
 
 .comebackhome-person-name
   margin-top 15%
@@ -101,7 +103,10 @@ text-size($size)
   border-radius 50%
 
 .comebackhome-person-column
-  width 50%
+  width $column-width
+  margin-right $gutter-width
   position relative
   float left
   text-align left
+  &:last-of-type
+    margin-right 0

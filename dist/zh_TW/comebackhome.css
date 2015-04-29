@@ -126,14 +126,12 @@
   margin: 0;
   padding-left: 0;
   list-style-type: none;
+  margin: 0 auto;
 }
 .comebackhome-person-frame {
-  width: 33%;
+  width: 310px;
   float: left;
   margin-bottom: 20px;
-}
-.comebackhome-person-frame:nth-of-type(3n + 1) {
-  clear: left;
 }
 .comebackhome-person-name {
   margin-top: 15%;
@@ -162,8 +160,12 @@
   border-radius: 50%;
 }
 .comebackhome-person-column {
-  width: 50%;
+  width: 150px;
+  margin-right: 10px;
   position: relative;
   float: left;
   text-align: left;
+}
+.comebackhome-person-column:last-of-type {
+  margin-right: 0;
 }
