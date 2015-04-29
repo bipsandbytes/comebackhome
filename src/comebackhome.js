@@ -1,11 +1,11 @@
 /*globals util, templates*/
 
 var API_URL = 'http://comebackhome.org/api/v1/person/';
-var IPLOOKUP_URL = 'https://ifreegeoip.net/json/';
+var IPLOOKUP_URL = 'https://freegeoip.net/json/';
 // default to San Francisco
 var DEFAULT_LOCATION = {
   latitude: 37.7833,
-  longitude: 122.4167
+  longitude: -122.4167
 };
 
 var itemWidth = 310;
@@ -61,7 +61,9 @@ var comebackhome = function($target, options) {
       });
     });
   };
-  getUserLocation().success(showResults(location)).error(showResults(DEFAULT_LOCATION));
+  getUserLocation()
+    .success(showResults)
+    .error(showResults.bind(null, DEFAULT_LOCATION));
 
   util.trackUsage();
 };

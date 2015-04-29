@@ -69,16 +69,18 @@ util.getJSON = function(url, data) {
     }
   };
   request.send(data);
-  return {
+  var returnValue = {
     success: function(callback) {
       methods.success = callback;
-      return methods;
+      return returnValue;
     },
     error: function(callback) {
       methods.error = callback;
-      return methods;
+      return returnValue;
     }
   };
+
+  return returnValue;
 };
 
 // Based on http://stackoverflow.com/questions/6348494/addeventlistener-vs-onclick
