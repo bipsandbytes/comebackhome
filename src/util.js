@@ -194,3 +194,13 @@ util.getViewport = function() {
     height: viewPortHeight,
   };
 };
+
+util.once = function(f) {
+  var called = false;
+  return function() {
+    if (!called) {
+      called = true;
+      f.apply(this, arguments);
+    }
+  };
+};
