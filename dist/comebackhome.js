@@ -171,10 +171,31 @@ util.trackUsage = function() {
     document.getElementsByTagName('head')[0].appendChild(googleAnalyticsScript);
 };
 
+var templates = {};templates["body"] = function anonymous(data
+/**/) {
+var out='<div id="comebackhome-container"> <div class="comebackhome-header"> <div class="comebackhome-pulluptab">▲ Help find missing people</div> <div id="comebackhome-title" class="comebackhome-title comebackhome-title-throb">404 Person Not Found</div> </div> <div id="comebackhome-panel"> <ul id="comebackhome-results"></ul> <p class="comebackhome-poweredby"> Powered by <a target="_blank" href="http://comebackhome.org/">comebackhome.org</a> </p> </div></div>';return out;
+};
+templates["items"] = function anonymous(data
+/**/) {
+var out='';var arr1=data;if(arr1){var item,i1=-1,l1=arr1.length-1;while(i1<l1){item=arr1[i1+=1];out+='<li class="comebackhome-person-frame"> <a href="'+( item.url)+'" target="_blank"> <div class="comebackhome-person-column"> <img class="comebackhome-person-picture" src="http://res.cloudinary.com/comebackhome/image/fetch/w_150,h_150,c_fill,f_auto,g_face:center,e_grayscale/'+( item.thumbnail_url )+'" alt='+( item.name )+'> </div> <div class="comebackhome-person-column comebackhome-person-info"> <div class="comebackhome-person-name">'+( item.display_name )+'</div> <div class="comebackhome-person-location">'+( item.display_location )+'</div> <div class="comebackhome-person-extra"> Missing since '+( new Date(item.since).toLocaleDateString() )+' ';if(item.age_now){out+=' <br> Age now: '+( item.age_now )+' ';}out+=' </div> </div> </a></li>';} } return out;
+};
 /*globals util, templates*/
 
 var apiURL = 'http://comebackhome.org/api/v1/person/';
-var ipURL = 'https://freegeoip.net/json/';
+var ipURL = 'https://ifreegeoip.net/json/';
+var DEFAULT_LOCATION = {
+    city: "San Francisco",
+    country_code: "US",
+    country_name: "United States",
+    ip: "50.203.185.210",
+    latitude: 37.7833,
+    longitude: 122.4167,
+    metro_code: 415,
+    region_code: "CA",
+    region_name: "California",
+    time_zone: "America/Los_Angeles",
+    zip_code: "94107",
+};
 
 var defaults = {
   limit: 6
@@ -206,7 +227,9 @@ var comebackhome = function($target, options) {
   });
 
   var template = templates.items;
-  getUserLocation().success(function(location) {
+  var showResults = function(location) {
+    console.log('---');
+    console.log(location);
     options = util.extend({
       lat: Math.round(location.latitude),
       lon: Math.round(location.longitude)
@@ -216,7 +239,8 @@ var comebackhome = function($target, options) {
       var missing = util.shuffle(data.objects);
       $results.innerHTML = template(missing);
     });
-  });
+  };
+  getUserLocation().success(showResults(location)).error(showResults(DEFAULT_LOCATION));
 
   util.trackUsage();
 };
@@ -227,13 +251,5 @@ util.ready(function() {
   comebackhome(document.body, {});
 });
 
-var templates = {};templates["body"] = function anonymous(data
-/**/) {
-var out='<div id="comebackhome-container"> <div class="comebackhome-header"> <div class="comebackhome-pulluptab">▲ Help find missing people</div> <div id="comebackhome-title" class="comebackhome-title comebackhome-title-throb">404 Person Not Found</div> </div> <div id="comebackhome-panel"> <ul id="comebackhome-results"></ul> <p class="comebackhome-poweredby"> Powered by <a target="_blank" href="http://comebackhome.org/">comebackhome.org</a> </p> </div></div>';return out;
-};
-templates["items"] = function anonymous(data
-/**/) {
-var out='';var arr1=data;if(arr1){var item,i1=-1,l1=arr1.length-1;while(i1<l1){item=arr1[i1+=1];out+='<li class="comebackhome-person-frame"> <a href="'+( item.url)+'" target="_blank"> <div class="comebackhome-person-column"> <img class="comebackhome-person-picture" src="http://res.cloudinary.com/comebackhome/image/fetch/w_150,h_150,c_fill,f_auto,g_face:center,e_grayscale/'+( item.thumbnail_url )+'" alt='+( item.name )+'> </div> <div class="comebackhome-person-column comebackhome-person-info"> <div class="comebackhome-person-name">'+( item.display_name )+'</div> <div class="comebackhome-person-location">'+( item.display_location )+'</div> <div class="comebackhome-person-extra"> Missing since '+( new Date(item.since).toLocaleDateString() )+' ';if(item.age_now){out+=' <br> Age now: '+( item.age_now )+' ';}out+=' </div> </div> </a></li>';} } return out;
-};
 return comebackhome;
 }));
