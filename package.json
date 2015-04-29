@@ -31,7 +31,6 @@
     "url": "https://github.com/bipsandbytes/comebackhome.git"
   },
   "pre-commit": [
-    "build"
   ],
   "author": "Bipin Suresh <bipin@coursera.org>",
   "contributors": [
