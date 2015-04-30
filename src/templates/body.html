@@ -9,7 +9,10 @@
       <li class="comebackhome-person-frame">
         <a href="{{= item.url}}" target="_blank">
           <div class="comebackhome-person-column">
-            <img class="comebackhome-person-picture" src="http://res.cloudinary.com/comebackhome/image/fetch/w_150,h_150,c_fill,f_auto,g_face:center,e_grayscale/{{= item.thumbnail_url }}" alt={{= item.name }}>
+            <img class="comebackhome-person-picture"
+              src="https://res.cloudinary.com/comebackhome/image/fetch/w_150,h_150,c_fill,f_auto,g_face:center,e_grayscale/{{= item.thumbnail_url }}"
+              alt={{= item.display_name }}
+            >
           </div>
           <div class="comebackhome-person-column comebackhome-person-info">
             <div class="comebackhome-person-name">{{= item.display_name }}</div>
@@ -27,7 +30,7 @@
       {{~}}
     </ul>
     <p class="comebackhome-poweredby">
-      Powered by <a target="_blank" href="http://comebackhome.org/">comebackhome.org</a>
+      Powered by <a target="_blank" href="https://comebackhome.org/">comebackhome.org</a>
     </p>
   </div>
 </div>

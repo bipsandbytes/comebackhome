@@ -214,10 +214,6 @@ util.once = function(f) {
   };
 };
 
-var templates = {};templates["body"] = function anonymous(data
-/**/) {
-var out='<div id="comebackhome-container"> <div class="comebackhome-header"> <div class="comebackhome-pulluptab">▲ Help find missing people</div> <div id="comebackhome-title" class="comebackhome-title comebackhome-title-throb">404 Person Not Found</div> </div> <div id="comebackhome-panel"> <ul id="comebackhome-results"> ';var arr1=data;if(arr1){var item,i1=-1,l1=arr1.length-1;while(i1<l1){item=arr1[i1+=1];out+=' <li class="comebackhome-person-frame"> <a href="'+( item.url)+'" target="_blank"> <div class="comebackhome-person-column"> <img class="comebackhome-person-picture" src="http://res.cloudinary.com/comebackhome/image/fetch/w_150,h_150,c_fill,f_auto,g_face:center,e_grayscale/'+( item.thumbnail_url )+'" alt='+( item.name )+'> </div> <div class="comebackhome-person-column comebackhome-person-info"> <div class="comebackhome-person-name">'+( item.display_name )+'</div> <div class="comebackhome-person-location">'+( item.display_location )+'</div> <div class="comebackhome-person-extra"> Missing since '+( new Date(item.since).toLocaleDateString() )+' ';if(item.age_now){out+=' <br> Age now: '+( item.age_now )+' ';}out+=' </div> </div> </a> </li> ';} } out+=' </ul> <p class="comebackhome-poweredby"> Powered by <a target="_blank" href="http://comebackhome.org/">comebackhome.org</a> </p> </div></div>';return out;
-};
 /*globals util, templates*/
 
 var API_URL = 'https://comebackhome.org/api/v1/person/';
@@ -306,5 +302,9 @@ util.ready(function(status) {
   }
 });
 
+var templates = {};templates["body"] = function anonymous(data
+/**/) {
+var out='<div id="comebackhome-container"> <div class="comebackhome-header"> <div class="comebackhome-pulluptab">▲ Help find missing people</div> <div id="comebackhome-title" class="comebackhome-title comebackhome-title-throb">404 Person Not Found</div> </div> <div id="comebackhome-panel"> <ul id="comebackhome-results"> ';var arr1=data;if(arr1){var item,i1=-1,l1=arr1.length-1;while(i1<l1){item=arr1[i1+=1];out+=' <li class="comebackhome-person-frame"> <a href="'+( item.url)+'" target="_blank"> <div class="comebackhome-person-column"> <img class="comebackhome-person-picture" src="https://res.cloudinary.com/comebackhome/image/fetch/w_150,h_150,c_fill,f_auto,g_face:center,e_grayscale/'+( item.thumbnail_url )+'" alt='+( item.display_name )+' > </div> <div class="comebackhome-person-column comebackhome-person-info"> <div class="comebackhome-person-name">'+( item.display_name )+'</div> <div class="comebackhome-person-location">'+( item.display_location )+'</div> <div class="comebackhome-person-extra"> Missing since '+( new Date(item.since).toLocaleDateString() )+' ';if(item.age_now){out+=' <br> Age now: '+( item.age_now )+' ';}out+=' </div> </div> </a> </li> ';} } out+=' </ul> <p class="comebackhome-poweredby"> Powered by <a target="_blank" href="https://comebackhome.org/">comebackhome.org</a> </p> </div></div>';return out;
+};
 return comebackhome;
 }));
