@@ -4,6 +4,7 @@
   line-height: 19.2px;
 }
 .comebackhome-header .comebackhome-subheading,
+.comebackhome-header .comebackhome-pulluptab,
 .comebackhome-person-location {
   font-size: 14px;
   line-height: 16.8px;
@@ -34,7 +35,7 @@
 }
 .comebackhome-header .comebackhome-pulluptab {
   position: absolute;
-  top: -40px;
+  top: -36px;
   color: #eee;
   background-color: #428bca;
   right: 10px;
