@@ -47,13 +47,14 @@ var comebackhome = util.once(function($target, options) {
     element.innerHTML = templates.body(missing);
     $target.appendChild(element);
 
-    var $frame = document.getElementById('comebackhome-container');
+    var $header = document.getElementById('comebackhome-header');
     var $panel = document.getElementById('comebackhome-panel');
     var $title = document.getElementById('comebackhome-title');
     var $results = document.getElementById('comebackhome-results');
 
     $results.style.width = containerWidth + 'px';
-    util.addEvent($frame, 'click', function() {
+    util.addEvent($header, 'click', function() {
+      ga('send', 'event', 'link', 'click', 'panel');
       util.toggleClass($panel, 'comebackhome-show');
       util.toggleClass($title, 'comebackhome-title-throb');
     });

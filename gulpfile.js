@@ -96,6 +96,12 @@ gulp.task('js:min', function() {
 
 gulp.task('bundle', function() {
   return tasks.combine(tasks.templates(), tasks.js(), tasks.injectCSS(true))
+    .pipe(rename({extname: '.bundle.js'}))
+    .pipe(gulp.dest(paths.dest));
+});
+
+gulp.task('bundle:min', function() {
+  return tasks.combine(tasks.templates(), tasks.js(), tasks.injectCSS(true))
     .pipe(uglify())
     .pipe(rename({extname: '.bundle.min.js'}))
     .pipe(gulp.dest(paths.dest));
@@ -119,11 +125,11 @@ gulp.task('stylus:min', function () {
 });
 
 gulp.task('watch', function() {
-  gulp.watch(paths.js, ['lint', 'js', 'bundle']);
-  gulp.watch(paths.templates, ['js', 'bundle']);
-  gulp.watch(paths.stylus, ['stylus', 'bundle']);
+  gulp.watch(paths.js, ['lint', 'js', 'bundle', 'bundle:min']);
+  gulp.watch(paths.templates, ['js', 'bundle', 'bundle:min']);
+  gulp.watch(paths.stylus, ['stylus', 'bundle', 'bundle:min']);
 });
 
-gulp.task('build', ['lint', 'js', 'js:min', 'stylus', 'stylus:min', 'bundle']);
+gulp.task('build', ['lint', 'js', 'js:min', 'stylus', 'stylus:min', 'bundle', 'bundle:min']);
 
 gulp.task('default', ['build', 'watch']);

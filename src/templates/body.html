@@ -1,5 +1,5 @@
 <div id="comebackhome-container">
-  <div class="comebackhome-header">
+  <div id="comebackhome-header" class="comebackhome-header">
     <div class="comebackhome-pulluptab">▲ Help find missing people</div>
     <div id="comebackhome-title" class="comebackhome-title comebackhome-title-throb">404 Person Not Found</div>
   </div>
@@ -7,7 +7,7 @@
     <ul id="comebackhome-results">
       {{~data :item}}
       <li class="comebackhome-person-frame">
-        <a href="{{= item.url}}" target="_blank">
+        <a onclick="ga('send', 'event', 'link', 'click', 'person')" href="{{= item.url}}" target="_blank">
           <div class="comebackhome-person-column">
             <img class="comebackhome-person-picture"
               src="https://res.cloudinary.com/comebackhome/image/fetch/w_150,h_150,c_fill,f_auto,g_face:center,e_grayscale/{{= item.thumbnail_url }}"
