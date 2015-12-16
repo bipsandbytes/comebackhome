@@ -1,0 +1,74 @@
+#!/usr/bin/python
+from lxml import html
+import json
+import re
+import requests
+from constants import interpol_country_codes
+
+
+class Command:
+    help = 'Scrape http://www.interpol.int/ for data on missing people'
+
+    def handle(self, *args, **kwargs):
+        persons_json = []
+        for (country_id, country) in interpol_country_codes.items():
+            offset = 0
+            while True:
+                url = (
+                    "http://www.interpol.int/notice/search/missing/"
+                    "(offset)/%s/(Nationality)/%s/(current_age_maxi)/100/(search)/1"
+                ) % (offset, country_id)
+                page = requests.get(url)
+                new_persons = self._extract_persons_from_html(page)
+
+                for person in new_persons:
+                    persons_json.append({
+                        'source': 'Interpol',
+                        'display_name': person['name'].title(),
+                        'display_location': country,
+                        'country': country,
+                        'thumbnail_url': person['thumbnail_url'],
+                        'url': person['url'],
+                        'identifier': person['identifier'],
+                        'age_now': person['age_now'],
+                    })
+
+                break
+                if not len(new_persons):
+                    break
+                offset += 9
+        print json.dumps(persons_json, indent=2)
+
+    def _extract_persons_from_html(self, page):
+        tree = html.fromstring(page.text)
+
+        names = []
+        for titre in tree.xpath('//span[@class="titre"]'):
+            partial_names = titre.xpath('./text()')
+            names.append(' '.join([n.capitalize() for n in partial_names]))
+
+        urls = ['http://www.interpol.it' + u for u in tree.xpath('//a[@class="details"]/@href')]
+        ages_today = [re.sub(r'\s*Age today : ', '', s) for s in tree.xpath('//div[@class="date"]/text()') if s.find('Age') != -1]
+        thumbnails = ['http://www.interpol.int' + s.replace('GetThumbnail', 'GetPicture') for s in tree.xpath('//img[@class="photo"]/@src')]
+        ids = [url.replace('http://www.interpol.it/notice/search/missing/', 'INTERPOL-') for url in urls]
+
+        persons = []
+        if len(names) != len(urls):
+            # for some reason, all persons don't have URLs.
+            # raise an exception instead of filling in bad data
+            raise Exception('Could not extract data from interpol.it')
+
+        for (id, name, url, age_now, thumbnail) in zip(ids, names, urls, ages_today, thumbnails):
+            persons.append({
+                'identifier': id,
+                'name': name,
+                'url': url,
+                'age_now': age_now,
+                'thumbnail_url': thumbnail,
+            })
+
+        return persons
+
+
+if __name__ == '__main__':
+    Command().handle()

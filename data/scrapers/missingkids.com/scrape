@@ -1,0 +1,85 @@
+#!/usr/bin/python
+import json
+import requests
+from constants import missing_kids_us_states
+
+
+class Command:
+    help = 'Scrape http://missingkids.com for data on missing children'
+
+    def handle(self, *args, **kwargs):
+        persons_json = []
+        for state in missing_kids_us_states:
+            persons = self._fetch_persons(state)
+            for person in persons:
+                # comebackhome is primarily a visual search.
+                # If the person has no photo, then do not include them in our records.
+                if not person['hasPoster'] or not person['hasThumbnail']:
+                    continue
+
+                # May not always be the right way, but we need to somehow create a
+                # display name, both to show to the user, and also to help de-dup.
+                display_name = '%s %s %s' % (
+                    person['firstName'].title(),
+                    person['middleName'].title(),
+                    person['lastName'].title()
+                )
+                display_location = '%s, %s' % (
+                    person['missingCity'].title(),
+                    person['missingCountry'].upper()
+                )
+                persons_json.append({
+                    'source': person['orgName'],
+                    'first_name': person['firstName'].title(),
+                    'middle_name': person['middleName'].title(),
+                    'last_name': person['lastName'].title(),
+                    'display_name': display_name,
+                    'city': person['missingCity'].title(),
+                    'state': person['missingState'].upper(),
+                    'country': person['missingCountry'].upper(),
+                    'display_location':  display_location,
+                    'thumbnail_url': 'http://www.missingkids.com'+person['thumbnailUrl'].replace('t.jpg', '.jpg'),
+                    'url': 'http://www.missingkids.com/poster/NCMC/'+person['caseNumber'],
+                    'identifier': 'MISSINGKIDS-'+person['caseNumber'],
+                    'since': person.get('missingDate'),
+                })
+        print json.dumps(persons_json, indent=2)
+
+    def _create_session(self, state):
+            url = 'http://www.missingkids.com/missingkids/servlet/JSONDataServlet'
+            params = {
+                'action': 'publicSearch',
+                'searchLang': 'en_US',
+                'search': 'new',
+                'missCountry': 'US',
+                'LanguageId': 'en_US',
+                'subjToSearch': 'child',
+                'searchSubject': 'child',
+                'missState': state,
+            }
+            session = requests.Session()
+            session.get(url, params=params)
+            return session
+
+    def _fetch_persons(self, state):
+        session = self._create_session(state)
+
+        url = 'http://www.missingkids.com/missingkids/servlet/JSONDataServlet'
+        persons = []
+        page_number = 1
+        while True:
+            params = {
+                'action': 'publicSearch',
+                'searchLang': 'en_US',
+                'goToPage': page_number,
+            }
+            response = session.get(url, params=params).json()
+            persons += response['persons']
+
+            page_number += 1
+            if page_number >= response['totalPages']:
+                break
+        return persons
+
+if __name__ == '__main__':
+    Command().handle()
