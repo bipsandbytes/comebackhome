@@ -24,8 +24,9 @@ class Command:
                     person['middleName'].title(),
                     person['lastName'].title()
                 )
-                display_location = '%s, %s' % (
+                display_location = '%s, %s, %s' % (
                     person['missingCity'].title(),
+                    person['missingState'].upper(),
                     person['missingCountry'].upper()
                 )
                 persons_json.append({
