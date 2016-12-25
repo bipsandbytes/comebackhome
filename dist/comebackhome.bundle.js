@@ -247,7 +247,7 @@ var DEFAULT_LOCATION = {
   latitude: 37.7833,
   longitude: -122.4167
 };
-var LAT_LON_GRANULARITY = 10;
+var LAT_LON_GRANULARITY = 2;
 
 var getData = function(options) {
   if (USE_PREFETCHED_DATA) {
