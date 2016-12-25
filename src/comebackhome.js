@@ -1,6 +1,8 @@
 /*globals util, templates*/
 
+var USE_PREFETCHED_DATA = true;
 var API_URL = 'https://comebackhome.org/api/v1/person/';
+var S3_URL = 'https://s3-us-west-1.amazonaws.com/bipsandbytes-comebackhome/prefetched_data/';
 var IPLOOKUP_URL = 'https://freegeoip.net/json/';
 var DEFAULTS = {
   itemWidth: 310,
@@ -13,8 +15,13 @@ var DEFAULT_LOCATION = {
   latitude: 37.7833,
   longitude: -122.4167
 };
+var LAT_LON_GRANULARITY = 2;
 
 var getData = function(options) {
+  if (USE_PREFETCHED_DATA) {
+    var S3_FILE = S3_URL + options.lat + '_' + options.lon + '.json';
+    return util.getJSON(S3_FILE);
+  }
   return util.getJSON(API_URL, util.extend({}, options));
 };
 
@@ -64,13 +71,13 @@ var comebackhome = util.once(function($target, options) {
   var showResults = function(location) {
     var params = {
       format: 'json',
-      lat: Math.round(location.latitude),
-      lon: Math.round(location.longitude),
+      lat: Math.round(location.latitude / LAT_LON_GRANULARITY) * LAT_LON_GRANULARITY,
+      lon: Math.round(location.longitude / LAT_LON_GRANULARITY) * LAT_LON_GRANULARITY,
       limit: options.limit || rows * columns
     };
     getData(params).success(function(data) {
       // shuffle the results around to randomize the results
-      render(util.shuffle(data.objects));
+      render(util.shuffle(data.objects.slice(0, params.limit)));
     });
   };
 

@@ -39,7 +39,6 @@
   color: #eee;
   background-color: #428bca;
   right: 10px;
-  -webkit-border-radius: 10px 10px 0 0;
   border-radius: 10px 10px 0 0;
   padding: 10px;
 }
@@ -159,7 +158,6 @@
   width: 100%;
   max-width: 150px;
   max-height: 150px;
-  -webkit-border-radius: 50%;
   border-radius: 50%;
 }
 .comebackhome-person-column {
